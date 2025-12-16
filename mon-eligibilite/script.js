@@ -453,3 +453,63 @@ function formatPhone() {
     });
   }
 });
+/* =========================================
+   COOKIE TOAST (Logique SaaS Premium)
+   ========================================= */
+document.addEventListener("DOMContentLoaded", function() {
+  const toast = document.getElementById('cookie-toast');
+  const btnAccept = document.getElementById('btn-accept');
+  const btnDecline = document.getElementById('btn-decline');
+
+  // Sécurité : si le bandeau n'existe pas dans le HTML, on arrête
+  if (!toast || !btnAccept || !btnDecline) return;
+
+  // 1. Délai d'apparition "SaaS" (0.8 seconde pour laisser l'interface charger)
+  setTimeout(() => {
+    // Si l'utilisateur n'a pas encore choisi (rien dans le stockage)
+    if (!localStorage.getItem('cookieConsent')) {
+      toast.classList.add('is-visible'); // Active l'animation CSS
+      toast.setAttribute('aria-hidden', 'false');
+    }
+  }, 800);
+
+  // --- 2. Action : ACCEPTER ---
+  btnAccept.addEventListener('click', function() {
+    // A. On envoie le signal "OK" à Google
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    }
+    
+    // B. On sauvegarde le choix pour ne plus l'embêter
+    localStorage.setItem('cookieConsent', 'accepted');
+    
+    // C. On ferme le toast
+    closeToast();
+  });
+
+  // --- 3. Action : REFUSER / CONTINUER ---
+  btnDecline.addEventListener('click', function() {
+    // A. On ne change rien (Google reste bloqué par défaut comme défini dans le <head>)
+    // B. On sauvegarde juste qu'il a refusé
+    localStorage.setItem('cookieConsent', 'refused');
+    
+    // C. On ferme le toast
+    closeToast();
+  });
+
+  // Fonction pour fermer avec l'animation inverse
+  function closeToast() {
+    toast.classList.remove('is-visible'); // L'animation CSS de sortie se lance
+    toast.setAttribute('aria-hidden', 'true');
+    
+    // On attend la fin de l'animation CSS (0.4s) avant de masquer complétement
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 400);
+  }
+});
