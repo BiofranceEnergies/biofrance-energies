@@ -22,14 +22,27 @@
   <!-- Feuille de style -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Google tag (gtag.js) - Compte Ads -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11242044118"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'AW-11242044118');
-  </script>
+ <script>
+  // 1. On initialise le dataLayer
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // 2. CONSENT MODE V2 : On REFUSE tout par défaut (avant que le script Google ne se charge)
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500 // On laisse 500ms au site pour charger les préférences si elles existent déjà
+  });
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11242044118"></script>
+
+<script>
+  gtag('js', new Date());
+  gtag('config', 'AW-11242044118');
+</script>
 
   <!-- Données structurées : Service (version PAC générique) -->
   <script type="application/ld+json">
