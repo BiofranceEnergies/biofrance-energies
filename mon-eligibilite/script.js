@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     if (profile === "JAUNE") racDisplayAmount = "2 500 €";
     if (profile === "VIOLET") racDisplayAmount = "4 500 €";
-    if (profile === "ROSE") racDisplayAmount = "Sur devis";
+    if (profile === "ROSE") racDisplayAmount = "Audit requis";
 
     // --- LE SWAP : On cache le formulaire, on montre le résultat ---
     const step1 = document.getElementById('sim-step-1');
