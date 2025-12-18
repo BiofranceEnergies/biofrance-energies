@@ -2146,7 +2146,85 @@ body.results-visible #focus-adou { display: none !important; }
   font-weight: 700 !important;
   font-size: 1rem !important;
 }
+/* =========================================
+   STYLE RESULTATS "SWAP" (Look Adoucisseur)
+   ========================================= */
 
+/* Variables locales pour ce bloc */
+#sim-step-2 {
+    --primary: #f59e0b;       /* Orange vif */
+    --primary-hover: #ea580c; /* Orange foncé */
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* En-tête du Résultat */
+.result-header-saas {
+    display: flex; align-items: center; gap: 15px; margin-bottom: 20px;
+    padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Avatar Expert (Photo ronde avec bordure verte) */
+.expert-avatar-wrapper {
+    position: relative; width: 50px; height: 50px; flex-shrink: 0;
+}
+.expert-avatar-img {
+    width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+    border: 2px solid #22c55e; /* Vert validation */
+}
+.expert-check-badge {
+    position: absolute; bottom: -2px; right: -2px;
+    background: #22c55e; color: #020408; width: 18px; height: 18px;
+    border-radius: 50%; font-size: 11px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #0a1128;
+}
+
+/* Titres */
+.result-title-group { display: flex; flex-direction: column; text-align: left; }
+.sub-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 2px; }
+.model-name-saas { margin: 0; font-size: 1.4rem; color: white; font-weight: 800; line-height: 1.1; }
+
+/* Carte de données (Le cadre gris/transparent) */
+.saas-card {
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; padding: 16px; margin-bottom: 16px;
+}
+
+/* Lignes de données */
+.data-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.separator-line { height: 1px; background: rgba(255, 255, 255, 0.1); margin: 12px 0; }
+
+.total-row .data-label { color: #94a3b8; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; }
+/* Le Prix en Orange Électrique */
+.highlight-orange { color: #f59e0b; font-size: 1.8rem; font-weight: 800; text-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
+
+/* Formulaire intégré (Gate) */
+.sim-row { display: flex; gap: 10px; }
+.sim-input {
+    flex: 1; padding: 12px; background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
+    color: white; font-size: 1rem; width: 100%; outline: none;
+}
+.sim-input:focus { border-color: var(--primary); }
+
+.btn-primary {
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    color: white; border: none; padding: 12px 20px; border-radius: 8px;
+    font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); }
+
+.restart-link { text-align: center; color: #94a3b8; font-size: 0.8rem; text-decoration: underline; margin-top: 15px; cursor: pointer; }
+
+/* Responsive Mobile */
+@media (max-width: 500px) {
+    .sim-row { flex-direction: column; gap: 10px; }
+    .btn-primary { width: 100%; }
+    .model-name-saas { font-size: 1.2rem; }
+}
 /* 5. Alignement parfait des colonnes */
 .footer-col {
   padding-right: 20px;
