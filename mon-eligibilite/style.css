@@ -1,28 +1,48 @@
 /* =================================================================
-   VARIABLES & RESET (RETOUR AU DESIGN DARK PREMIUM)
+   1. VARIABLES & CONFIGURATION (BASE ORIGINALE RESTAURÉE)
    ================================================================= */
 :root {
   --maxw: 1200px;
+  --hero-h-desktop: 94vh;
+  --hero-h-mobile: 98vh;
+
+  /* Palette Dark Mode Premium (Ton original) */
+  --bg-page: #0b1220;
+  --ink: #f1f5f9;
+  --muted: #cbd5e1;
   
-  /* COULEURS DARK MODE (Ton design original) */
-  --bg-page: #0b1220;       /* Bleu nuit profond */
-  --bg-card: rgba(17, 24, 39, 0.7); /* Fond des cartes semi-transparent */
-  --ink: #ffffff;           /* Texte principal blanc */
-  --muted: #94a3b8;         /* Texte secondaire gris clair */
-  --border: rgba(255, 255, 255, 0.12); /* Bordures fines */
+  --border: rgba(255, 255, 255, 0.15); /* Bordures fines et discrètes */
   
-  /* ACTION */
-  --cta-grad-top: #f59e0b;  /* Orange */
-  --cta-grad-bot: #ea580c; 
+  /* SAAS 2025 : Glassmorphism variables */
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --blur: blur(16px);
+
+  /* CTA ORANGE (Action) */
+  --cta-grad-top: #f59e0b;
+  --cta-grad-bot: #ea580c;
   --cta-text: #ffffff;
+  --cta-shadow: rgba(234, 88, 12, 0.4);
+
+  /* Marque */
+  --brand: #38bdf8; /* Bleu cyan lumineux pour les textes clés */
+  
+  /* Largeur harmonisée */
+  --costw: 880px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* RESPONSIVE VARIABLES */
+@media (max-width: 900px) { :root { --costw: 680px; } }
+@media (max-width: 600px) { :root { --costw: min(92vw, 560px); } }
 
+/* =================================================================
+   2. RESET & BODY
+   ================================================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: var(--bg-page);
   color: var(--ink);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -30,233 +50,271 @@ body {
 .skip-link { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* =================================================================
-   HEADER & LOGOS (Taille contrôlée)
+   3. HEADER & LOGOS (ORIGINAL + FIX MOBILE)
    ================================================================= */
 .logo-header { position: absolute; top: 24px; left: 24px; z-index: 10; }
-.logo-header img { height: 70px; width: auto; display: block; }
+.logo-header img { height: 90px; width: auto; display: block; }
 
 .header-certifs {
   position: absolute; top: 32px; right: 24px; z-index: 10;
-  display: flex; gap: 12px; align-items: center;
+  display: flex; gap: 15px; align-items: center;
 }
 .certif-logo {
   height: 45px; width: auto;
   background: rgba(255,255,255,0.95);
   padding: 4px 8px; border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .logo-header { top: 16px; left: 16px; }
-  .logo-header img { height: 40px; }
+  .logo-header img { height: 48px; }
   .header-certifs { top: 16px; right: 16px; gap: 8px; }
   .certif-logo { height: 28px; padding: 2px 4px; border-radius: 4px; }
 }
 
 /* =================================================================
-   HERO SECTION (Le design sombre que tu aimes)
+   4. HERO SECTION (STRUCTURE D'ORIGINE)
    ================================================================= */
 header.hero {
-  position: relative; min-height: 750px;
+  position: relative; isolation: isolate; overflow: hidden;
+  height: var(--hero-h-desktop); min-height: 700px;
   display: flex; align-items: center;
-  overflow: hidden;
-  background-color: #0b1220;
+}
+@media (max-width: 900px) {
+  header.hero { height: auto; min-height: auto; padding: 100px 0 60px; display: block; }
 }
 
 .hero__img {
   position: absolute; inset: 0; z-index: -2;
   width: 100%; height: 100%; object-fit: cover;
-  object-position: center; opacity: 0.5; /* Assombri pour lire le texte */
+  object-position: 60% center; opacity: 0.6; /* Assombri pour lisibilité */
 }
 
-/* Dégradé de protection pour le texte */
+/* Dégradé de fond original */
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(90deg, #0b1220 0%, rgba(11,18,32,0.9) 45%, rgba(11,18,32,0.4) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(11,18,32,1) 0%,
+    rgba(11,18,32,0.9) 35%,
+    rgba(11,18,32,0.4) 70%,
+    rgba(11,18,32,0.1) 100%
+  );
 }
 
 .hero__inner {
   width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px;
-  display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
-  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
 }
+@media (max-width: 900px) { .hero__inner { grid-template-columns: 1fr; gap: 40px; } }
 
-/* Textes Hero */
+/* Typo Hero */
 .hero__intro {
-  color: #38bdf8; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.05em; margin-bottom: 12px; font-size: 0.9rem;
+  font-size: clamp(16px, 1.6vw, 20px); color: var(--brand); font-weight: 700;
+  margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;
 }
 .hero__copy h1 {
-  color: #fff; font-size: clamp(32px, 4vw, 52px);
-  line-height: 1.1; font-weight: 800; margin-bottom: 20px;
+  font-size: clamp(34px, 4vw, 52px); line-height: 1.1; font-weight: 800;
+  margin: 12px 0 20px; color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 .hero__copy .lead {
-  color: #cbd5e1; font-size: 1.1rem; font-weight: 500;
-  max-width: 580px; margin-bottom: 24px;
+  font-size: clamp(17px, 1.6vw, 20px); line-height: 1.5; color: var(--muted);
+  font-weight: 500; margin-bottom: 24px; max-width: 60ch;
 }
 
-/* Puces */
+/* Puces Hero */
 .hero-bullets { list-style: none; padding: 0; }
 .hero-bullets li {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
-  color: #e2e8f0; font-weight: 600;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+  font-weight: 600; color: #e2e8f0; font-size: 1rem;
 }
-.hero-bullets svg {
-  width: 20px; height: 20px; fill: none; stroke: #22c55e; stroke-width: 2.5;
-}
-.hero-small { font-size: 0.75rem; color: #64748b; margin-top: 16px; }
+.hero-bullets svg { width: 22px; height: 22px; }
+.hero-small { font-size: 0.8rem; opacity: 0.7; margin-top: 20px; }
 
-/* Responsive Hero */
-@media (max-width: 900px) {
-  header.hero { display: block; padding: 100px 0 60px; min-height: auto; }
-  .hero__inner { grid-template-columns: 1fr; gap: 40px; }
-  .hero::before { background: linear-gradient(180deg, #0b1220 0%, rgba(11,18,32,0.7) 100%); }
-}
 
 /* =================================================================
-   CARTE FORMULAIRE (Réparation du style)
+   5. CARTE FORMULAIRE (LE STYLE SAAS 2025 APPLIQUÉ ICI)
    ================================================================= */
 .card {
-  width: 460px; max-width: 100%;
-  background: rgba(15, 23, 42, 0.85); /* Fond sombre vitré */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  margin-top: 20px;
-  overflow: hidden;
+  position: relative; width: 460px; max-width: 100%;
+  /* Effet Verre (Glassmorphism) */
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden; z-index: 2; margin-top: 20px;
 }
+@media (max-width: 900px) { .card { margin: 0 auto; width: 100%; } }
 
 .card__head {
-  padding: 24px; border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 24px; 
+  background: rgba(0,0,0,0.2); /* Légèrement plus sombre que le corps */
+  border-bottom: 1px solid var(--glass-border);
+  text-align: left;
 }
-.card__head .t1 { font-size: 1.25rem; font-weight: 700; color: #fff; }
-.card__head .t2 { font-size: 0.95rem; color: #94a3b8; margin-top: 4px; }
+.card__head .t1 { font-weight: 700; font-size: 1.25rem; color: #fff; display: block; }
+.card__head .t2 { font-size: 0.95rem; color: #94a3b8; margin-top: 4px; display: block; }
 
 .card__body { padding: 24px; }
 
 /* Progression */
 .card-progress__text { text-align: right; font-size: 0.85rem; color: #94a3b8; margin-bottom: 6px; }
 .card-progress__bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 99px; }
-.card-progress__fill { height: 100%; background: #38bdf8; width: 20%; transition: width 0.3s; }
+.card-progress__fill { height: 100%; background: var(--brand); width: 20%; transition: width 0.3s ease; }
 
-/* Champs Inputs (Style Sombre lisible) */
+/* Champs (Inputs) */
 .card-step__title { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-.card-step__question { color: #cbd5e1; margin-bottom: 16px; }
+.card-step__question { color: #cbd5e1; margin-bottom: 16px; font-size: 0.95rem; }
 
+.field { margin-bottom: 18px; }
 .inp, .sel {
   width: 100%; padding: 14px 16px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3); /* Fond sombre translucide */
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px; color: #fff;
-  font-size: 1rem; outline: none; transition: 0.2s;
-}
-.inp:focus, .sel:focus {
-  border-color: #38bdf8; background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  color: #fff; font-size: 1rem;
+  transition: all 0.2s; outline: none;
 }
 .sel option { background: #0b1220; color: #fff; }
+
+.inp:focus, .sel:focus {
+  border-color: var(--brand);
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+}
 
 /* Boutons Navigation */
 .card-nav { display: flex; gap: 12px; margin-top: 24px; }
 .btn-secondary {
-  padding: 0 20px; height: 52px; background: transparent;
-  border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
-  color: #cbd5e1; cursor: pointer;
+  height: 52px; padding: 0 20px;
+  background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+  color: #cbd5e1; cursor: pointer; font-weight: 600;
 }
+.btn-secondary:hover { border-color: #fff; color: #fff; }
+
+/* CTA ORANGE (Le style "Chaleur" demandé) */
 .cta, #step-next {
-  flex: 1; height: 52px; display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, #f59e0b, #ea580c);
-  color: #fff; font-weight: 700; font-size: 1.05rem;
-  border: none; border-radius: 8px; cursor: pointer;
-  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+  flex: 1; height: 52px;
+  background: linear-gradient(135deg, var(--cta-grad-top), var(--cta-grad-bot));
+  color: var(--cta-text); font-weight: 800; font-size: 1.05rem;
+  border: none; border-radius: 12px;
+  box-shadow: 0 4px 20px var(--cta-shadow);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.cta:hover, #step-next:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.cta:hover, #step-next:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 25px var(--cta-shadow);
+}
 .form-note { font-size: 0.75rem; color: #64748b; margin-top: 16px; text-align: center; }
 
-/* =================================================================
-   CORRECTION CRITIQUE DES ICÔNES (ÉTOILES & COCHES)
-   ================================================================= */
-.sgrid, .bgrid, .mgrid { display: grid; gap: 24px; max-width: var(--maxw); margin: 0 auto; }
-.sgrid { grid-template-columns: repeat(3, 1fr); }
-.bgrid { grid-template-columns: repeat(4, 1fr); }
-
-/* On FORCE la taille des ronds d'icônes pour éviter l'explosion */
-.sbullet, .bicon, .micon, .picon, .avatar {
-  width: 56px; height: 56px;
-  border-radius: 50%; display: grid; place-items: center; margin-bottom: 16px;
-  flex-shrink: 0; /* Empêche l'écrasement */
-}
-
-/* Styles Icônes */
-.sbullet { background: linear-gradient(135deg, #f59e0b, #ea580c); color: #fff; font-weight: 800; margin: 0 auto 20px; }
-.bicon, .micon, .picon { background: rgba(255,255,255,0.08); }
-.bicon svg, .micon svg, .picon svg { width: 28px; height: 28px; stroke: #38bdf8; fill: none; stroke-width: 2; }
-
-/* Cartes (Benefits, Steps) */
-.scard, .bcard, .mcard, .tcard {
-  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  border-radius: 12px; padding: 24px; transition: transform 0.2s;
-}
-.scard:hover, .bcard:hover { border-color: #38bdf8; }
-
-.scard h3, .bcard h3, .mcard h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
-.scard p, .bcard p, .mcard p { font-size: 0.95rem; color: #cbd5e1; }
-.scard { text-align: center; }
-
-/* --- RÉPARATION DES ÉTOILES GEANTES --- */
-.testi__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: var(--maxw); margin: 0 auto; }
-.tcard__stars { display: flex; gap: 4px; margin: 8px 0 12px; }
-.tcard__stars svg {
-  width: 18px !important; height: 18px !important; /* Taille forcée */
-  fill: #f59e0b; /* Jaune/Orange */
-  flex: 0 0 18px;
-}
-.tcard__quote { font-style: italic; color: #cbd5e1; }
-.avatar { background: rgba(255,255,255,0.1); color: #38bdf8; font-weight: 700; }
-
-/* --- RÉPARATION DE LA COCHE VERTE GEANTE --- */
-.steps__check { margin-top: 24px; text-align: center; }
-.steps__check svg {
-  width: 64px !important; height: 64px !important; /* Taille forcée */
-  display: inline-block;
-}
 
 /* =================================================================
-   TITRES & SECTIONS
+   6. SECTIONS CONTENU (MODULAIRES)
    ================================================================= */
 section { padding: 80px 24px; }
-h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: #fff; margin-bottom: 12px; text-align: center; }
-.subtitle { text-align: center; color: #94a3b8; max-width: 700px; margin: 0 auto 48px; }
+/* Sections alternées (Dark léger) */
+.steps, .process, .testi { background: #fff; color: #0f172a; } /* Fond blanc pour contraste contenu */
+.benefits, .metrics, .faq { background: #f8fafc; color: #0f172a; }
 
-/* Résultats (Masqué par défaut) */
-#recap { margin: 60px auto; max-width: 900px; display: none; }
+/* Titres de sections (sur fond clair) */
+.steps h2, .benefits h2, .process h2, .metrics h2, .testi h2, .faq h2 {
+  font-size: clamp(26px,4vw,42px); font-weight: 900; color: #0f172a;
+  text-align: center; margin-bottom: 12px;
+}
+.subtitle { text-align: center; color: #64748b; margin-bottom: 48px; font-size: 1.1rem; }
+
+/* Grilles */
+.sgrid, .bgrid, .prow, .mgrid, .testi__grid {
+  display: grid; gap: 24px; max-width: var(--maxw); margin: 0 auto;
+}
+.sgrid, .prow, .testi__grid { grid-template-columns: repeat(3, 1fr); }
+.bgrid { grid-template-columns: repeat(4, 1fr); }
+/* Fix Mobile Grilles */
+@media (max-width: 980px) {
+  .sgrid, .bgrid, .prow, .mgrid, .testi__grid { grid-template-columns: 1fr; }
+}
+
+/* CARDS (Style "Clean") */
+.scard, .bcard, .pstep, .mcard, .tcard {
+  background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;
+  transition: transform 0.3s;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+.scard:hover, .bcard:hover, .pstep:hover, .mcard:hover {
+  transform: translateY(-5px); border-color: var(--brand);
+}
+
+/* ICÔNES (Taille FIXE pour ne pas exploser) */
+.sbullet, .bicon, .picon, .micon, .avatar {
+  width: 56px; height: 56px; margin-bottom: 16px; border-radius: 50%;
+  display: grid; place-items: center; flex-shrink: 0;
+}
+/* Style specifique */
+.sbullet { background: linear-gradient(135deg, var(--cta-grad-top), var(--cta-grad-bot)); color: #fff; font-weight: 800; margin: 0 auto 20px; }
+.bicon, .picon, .micon { background: #e0f2fe; }
+.bicon svg, .picon svg, .micon svg { width: 28px; height: 28px; stroke: var(--brand); stroke-width: 2; fill: none; }
+
+/* Etoiles Témoignages (FIX) */
+.tcard__stars { display: flex; gap: 4px; margin-bottom: 12px; }
+.tcard__stars svg { width: 18px !important; height: 18px !important; fill: #f59e0b; flex-shrink: 0; }
+.avatar { background: #e0f2fe; color: var(--brand); font-weight: 700; }
+
+/* Metrics */
+.mgrid { grid-template-columns: repeat(5, 1fr); }
+@media (max-width: 1100px) { .mgrid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px) { .mgrid { grid-template-columns: 1fr; } }
+.mvalue { font-size: 2.5rem; font-weight: 900; color: var(--cta-grad-bot); line-height: 1; margin: 10px 0; }
+
+/* =================================================================
+   7. RÉSULTATS SIMULATION & FAQ & FOOTER
+   ================================================================= */
+/* Résultat (Masqué) */
+#recap { display: none; margin: 60px auto; max-width: 900px; }
 .rc-wrap {
-  background: #fff; color: #0f172a; /* Résultat en blanc type "papier" */
-  border-radius: 20px; padding: 40px;
+  background: #fff; border-radius: 20px; padding: 40px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
   display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
 }
-.rc-main__label { color: #64748b; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
-.rc-main__value { color: #ea580c; font-size: 4rem; font-weight: 800; line-height: 1; margin: 10px 0; }
+.rc-main__value { font-size: 4rem; font-weight: 800; color: var(--cta-grad-bot); line-height: 1; }
 .rc-details__list li { border-bottom: 1px dashed #e2e8f0; padding: 8px 0; display: flex; justify-content: space-between; }
-.rc-details__list strong { color: #0f172a; }
+@media (max-width: 800px) { .rc-wrap { grid-template-columns: 1fr; } }
 
 /* FAQ */
-.faq__item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; }
+.faq__item { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 12px; }
 .faq__btn {
-  width: 100%; padding: 18px; background: none; border: none; 
-  color: #fff; text-align: left; font-weight: 700; cursor: pointer;
-  display: flex; justify-content: space-between;
+  width: 100%; padding: 20px; background: none; border: none; text-align: left;
+  font-weight: 700; color: #0f172a; cursor: pointer; display: flex; justify-content: space-between;
 }
-.faq__panel { padding: 0 18px 18px; display: none; color: #cbd5e1; }
+.faq__btn:hover { color: var(--brand); }
+.faq__panel { padding: 0 20px 20px; display: none; color: #475569; }
 .faq__item.is-open .faq__panel { display: block; }
 
 /* Footer */
-.footer-cta { background: #000; padding: 60px 24px; text-align: center; margin-top: 40px; }
-.footer-cta h2 { color: #fff; }
+.footer-cta { background: linear-gradient(180deg, #1e293b, #0f172a); color: #fff; text-align: center; margin-top: 0; }
+.footer-cta .cta { display: inline-flex; width: auto; padding: 0 32px; margin-top: 24px; }
 
-/* Mobile fixes */
-@media (max-width: 900px) {
-  .sgrid, .bgrid, .mgrid, .testi__grid { grid-template-columns: 1fr; }
-  .rc-wrap { grid-template-columns: 1fr; }
+/* Bandeau SMS Mobile */
+.tel-banner {
+  position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px); padding: 16px; border-top: 1px solid #e2e8f0; z-index: 100;
+  display: none; justify-content: center;
 }
+.tel-banner--visible { display: flex; }
+.tel-banner__form { display: flex; gap: 10px; width: 100%; max-width: 600px; }
+.tel-banner__input { flex: 1; border: 1px solid #cbd5e1; background: #fff; color: #000; }
+@media (max-width: 600px) { .tel-banner__form { flex-wrap: wrap; } .tel-banner__input { min-width: 100%; } }
 
-#mentions-popup { background: #1e293b; color: #fff; border: 1px solid #334155; padding: 20px; border-radius: 12px; }
+/* Utilitaire Masquage Impression / Overlay */
+@media print { .hero, .footer-cta { display: none; } }
+#gate-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.8); z-index: 50; display: none; }
+#mentions-popup { 
+  display: none; position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%);
+  width: 320px; background: #fff; border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px; z-index: 9999;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2); font-size: 0.85rem; color: #0f172a;
+}
+#close-mentions { float: right; cursor: pointer; font-size: 1.2rem; font-weight: bold; background: none; border: none; }
