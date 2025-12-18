@@ -796,3 +796,29 @@ body.results-visible #focus-adou { display: none !important; }
 @media (max-width: 480px) {
   .cookie-toast { bottom: 0; right: 0; left: 0; max-width: 100%; border-radius: 16px 16px 0 0; padding-bottom: 32px; }
 }
+/* =========================================================
+   CORRECTIF URGENCE : BOUTON "SUIVANT" EN ORANGE
+   ========================================================= */
+
+/* On force la couleur Orange (Dégradé Ambre -> Orange brûlé) */
+#step-next {
+  background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+  
+  /* Petite bordure discrète et ombre pour le faire "sortir" */
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4) !important;
+  
+  /* On s'assure que le texte est bien gras et lisible */
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Effet au survol (quand on passe la souris dessus) */
+#step-next:hover {
+  background: linear-gradient(135deg, #fbbf24 0%, #c2410c 100%) !important;
+  transform: translateY(-2px); /* Le bouton remonte un peu */
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.6) !important; /* L'ombre grandit */
+  cursor: pointer;
+}
