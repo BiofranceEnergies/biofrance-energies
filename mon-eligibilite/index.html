@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Pompe à chaleur à partir de 1 € – Simulateur d’aides & devis en ligne</title>
-  <meta name="description" content="Pompe à chaleur : vérifiez votre éligibilité aux aides (MaPrimeRénov’, CEE) et estimez votre reste à charge en 1 minute. Simulation claire, sans engagement." />
+  <meta name="description" content="Pompe à chaleur : vérifiez votre éligibilité aux aides (MaPrimeRénov’, CEE, autres dispositifs) et estimez votre reste à charge en 1 minute. Simulation claire, sans engagement." />
   
   <link rel="canonical" href="https://biofrance-energies.cioo.io/mon-eligibilite/" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>">
@@ -15,7 +15,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
-  
+  <link rel="dns-prefetch" href="//raw.githubusercontent.com">
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
+
   <link rel="stylesheet" href="style.css" />
 
   <script>
@@ -34,6 +37,17 @@
     gtag('js', new Date());
     gtag('config', 'AW-11242044118');
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Installation de pompe à chaleur avec aides",
+    "description": "Simulation des aides pour une pompe à chaleur (MaPrimeRénov’, CEE, autres dispositifs) et estimation du reste à charge.",
+    "areaServed": { "@type": "Country", "name": "France" },
+    "provider": { "@type": "Organization", "name": "Biofrance Énergies" }
+  }
+  </script>
 </head>
 
 <body>
@@ -45,14 +59,14 @@
   <div class="logo-header" role="img" aria-label="Installateur pompe à chaleur">
     <img
       src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/366982ec2dc3c1959f9abb203791b01733807095/Logo%20biofrance%20energie%20-%203.webp"
-      alt="Biofrance Energies"
+      alt="Votre installateur de pompe à chaleur"
       loading="lazy"
     />
   </div>
   
   <div class="header-certifs">
-    <img src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/4613d8e81cad7d01a55e28676de2396777d9b24e/rge.webp" alt="RGE" class="certif-logo" />
-    <img src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/4613d8e81cad7d01a55e28676de2396777d9b24e/qualipv.webp" alt="QualiPV" class="certif-logo" />
+    <img src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/4613d8e81cad7d01a55e28676de2396777d9b24e/rge.webp" alt="Label RGE" class="certif-logo" />
+    <img src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/4613d8e81cad7d01a55e28676de2396777d9b24e/qualipv.webp" alt="Label QualiPV" class="certif-logo" />
   </div>
 
   <div class="hero__inner">
@@ -61,7 +75,7 @@
 
       <h1>Pompe à chaleur : éligible au reste à charge à 1&nbsp;€*&nbsp;?</h1>
       <p class="lead">
-        Modernisez votre chauffage.
+        Pour les foyers aux revenus modestes remplaçant une chaudière fioul/gaz.
         <strong>Offre financée par les Primes CEE & Aides d'État.</strong>
       </p>
 
@@ -80,15 +94,15 @@
         </li>
       </ul>
 
-      <p class="hero-small" style="margin-top:20px; font-size: 0.8rem; opacity: 0.7;">
-        *Selon profil et dispositif CEE. Reste à charge variable.
+      <p class="hero-small" style="font-size: 0.8rem; opacity: 0.7; margin-top: 20px;">
+        *Le reste à charge de 1 € est soumis à des conditions strictes de ressources. Faites le test pour vérifier.
       </p>
     </div>
 
     <section id="simulateur" role="region" aria-labelledby="formTitle" class="card">
       <header class="card__head">
         <h2 id="formTitle" class="t1">Calculez votre reste à charge</h2>
-        <p class="t2">5 questions simples, résultat immédiat.</p>
+        <p class="t2">5 questions simples, résultat indicatif immédiat.</p>
       </header>
 
       <div class="card__body">
@@ -108,7 +122,7 @@
 
           <div class="card-step" data-step="2" style="display:none">
             <h3 class="card-step__title">Surface habitable</h3>
-            <p class="card-step__question">Quelle est la surface de votre logement ?</p>
+            <p class="card-step__question">Quelle est la surface habitable de votre logement ?</p>
             <div class="field">
               <select id="surface" name="surface" class="sel" required>
                 <option value="" disabled selected hidden>Choisir...</option>
@@ -123,7 +137,7 @@
 
           <div class="card-step" data-step="3" style="display:none">
             <h3 class="card-step__title">Foyer fiscal</h3>
-            <p class="card-step__question">Personnes dans le foyer fiscal ?</p>
+            <p class="card-step__question">Combien de personnes composent votre foyer fiscal ?</p>
             <div class="field">
               <select id="foyer" name="foyer" class="sel" required>
                 <option value="" disabled selected hidden>Choisir...</option>
@@ -134,20 +148,21 @@
                 <option value="5+">5 personnes ou plus</option>
               </select>
             </div>
+            <p class="field__hint">Incluez toutes les personnes rattachées à votre foyer fiscal.</p>
           </div>
 
           <div class="card-step" data-step="4" style="display:none">
             <h3 class="card-step__title">Revenu fiscal</h3>
-            <p class="card-step__question">Revenu fiscal de référence (RFR) ?</p>
+            <p class="card-step__question">Quel est votre revenu fiscal de référence (RFR) ?</p>
             <div class="field">
-              <input id="rfr" name="rfr" type="text" inputmode="numeric" class="inp" placeholder="Ex: 22 500 €" required />
-              <p class="field__hint">Indiqué sur votre avis d’imposition.</p>
+              <input id="rfr" name="rfr" type="text" inputmode="numeric" class="inp" placeholder="Montant en €" required />
+              <p class="field__hint">Indiqué en page 2 de votre dernier avis d’imposition.</p>
             </div>
           </div>
 
           <div class="card-step" data-step="5" style="display:none">
             <h3 class="card-step__title">Chauffage actuel</h3>
-            <p class="card-step__question">Quel est votre chauffage principal ?</p>
+            <p class="card-step__question">Quel est votre chauffage principal actuel ?</p>
             <div class="field">
               <select id="chauffage" name="chauffage" class="sel" required>
                 <option value="" disabled selected hidden>Choisir...</option>
@@ -165,7 +180,7 @@
             <button type="button" class="cta" id="step-next">Suivant</button>
           </div>
           
-          <p class="form-note">Simulation indicative et gratuite.</p>
+          <p class="form-note">Résultat indicatif basé sur les barèmes CEE.</p>
         </form>
       </div>
     </section>
@@ -173,138 +188,262 @@
 </header>
 
 <section id="recap" class="result-section" style="display:none;">
-  <div class="rc-wrap">
-    <div class="rc-main">
-      <p class="rc-main__label">Reste à charge estimé</p>
-      <p class="rc-main__value" id="rc-rac-amount">0 €</p>
-      <p class="rc-main__note">Calcul basé sur les informations saisies.</p>
+  <section id="resume-cout" class="rc">
+    <div class="rc__inner">
+      <div class="rc__content">
+        <h3 class="rc__title">Vos aides estimées</h3>
+        <div class="rc__row"><span class="rc__value" id="rc-annual">0 €</span></div>
+        <div class="rc__sub">Montant total estimé (MaPrimeRénov’ + CEE)</div>
+      </div>
     </div>
-    <div class="rc-details">
-      <h3 class="rc-details__title">Vos informations</h3>
-      <ul class="rc-details__list">
-        <li><span>Département</span> <strong id="rc-dep">—</strong></li>
-        <li><span>Revenus</span> <strong id="rc-profile">—</strong></li>
-        <li><span>Foyer</span> <strong id="rc-foyer">—</strong></li>
-        <li><span>RFR</span> <strong id="rc-rfr">—</strong></li>
-        <li><span>Chauffage</span> <strong id="rc-chauffage">—</strong></li>
-      </ul>
+  </section>
+
+  <div id="gate-overlay" role="dialog" aria-modal="true">
+    <div class="gate-dim"></div>
+    <div class="gate-card">
+      <h3 class="gate-card__title">Passez du calcul à l’installation</h3>
+      <p class="gate-card__sub">Visualisez votre projet et vos aides réelles.</p>
+      <form id="gate-form" class="gate-form" novalidate>
+        <input class="gate-input" type="email" id="gate-email" name="email" placeholder="Email (facultatif)">
+        <input class="gate-input" type="tel" id="gate-phone" name="phone" placeholder="Téléphone (obligatoire)" required>
+        <button type="submit" class="gate-cta full">Afficher mes résultats</button>
+      </form>
+      <p class="gate-consent">Vous acceptez d’être contacté uniquement par SMS pour votre étude.</p>
     </div>
   </div>
 
-  <section id="prod" class="prod">
+  <div id="rc-cards" class="rc-cards">
+    <div class="rc-wrap">
+      <div class="rc-main">
+        <p class="rc-main__label">Reste à charge estimé</p>
+        <p class="rc-main__value" id="rc-rac-amount">0 €</p>
+        <p class="rc-main__note">Basé sur les informations saisies.</p>
+      </div>
+      <div class="rc-details">
+        <h3 class="rc-details__title">Rappel de vos informations</h3>
+        <ul class="rc-details__list">
+          <li><span>Département</span> <strong id="rc-dep">—</strong></li>
+          <li><span>Revenus</span> <strong id="rc-profile">—</strong></li>
+          <li><span>Foyer</span> <strong id="rc-foyer">—</strong></li>
+          <li><span>RFR</span> <strong id="rc-rfr">—</strong></li>
+          <li><span>Surface</span> <strong id="rc-surface">—</strong></li>
+          <li><span>Chauffage</span> <strong id="rc-chauffage">—</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <section id="prod" class="prod" style="display:none">
     <div class="prod__inner">
       <img class="prod__img" src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/89fdd9075045fa1bb3f1670c94c618b5710127b7/novaqua%20result.webp" alt="Pompe à chaleur" />
       <div>
-        <h3 class="prod__title">Pompe à chaleur Air/Eau</h3>
+        <h3 class="prod__title">Pompe à chaleur air/eau (pose incluse)</h3>
         <ul class="prod__specs">
-          <li>Installation par pro RGE</li>
-          <li>Raccordement chauffage existant</li>
-          <li>Mise en service incluse</li>
+          <li>Dimensionnée selon votre surface</li>
+          <li>Installation par professionnel RGE</li>
+          <li>Mise en service et réglages inclus</li>
         </ul>
-        <div class="prod__price">Pose incluse</div>
+        <div class="prod__price"><span class="prod__amount" id="prod-prix"></span> TTC après aides</div>
       </div>
+    </div>
+  </section>
+
+  <section id="autofin" class="autofin" style="display:none">
+    <div class="fin-card">
+      <div class="fin-tag">Financement possible (facultatif)</div>
+      <dl class="fin-list">
+        <dt>Coût de la pompe à chaleur</dt><dd><span id="fin-capital">—</span> TTC</dd>
+        <dt>Mensualité</dt><dd><span id="fin-mensu">—</span> € / mois</dd>
+      </dl>
+      <p class="fin-legal">Un crédit vous engage et doit être remboursé.</p>
     </div>
   </section>
 
   <div id="tel-banner" class="tel-banner">
-    <form id="tel-banner-form" class="tel-banner__form">
-      <span class="tel-banner__label">Finalisez votre dossier par SMS :</span>
-      <input type="tel" id="tel-banner-input" class="tel-banner__input" placeholder="06 12 34 56 78" required />
-      <button type="submit" class="tel-banner__btn">Recevoir mon dossier</button>
+    <form id="tel-banner-form" class="tel-banner__form" novalidate>
+      <span class="tel-banner__label">Finalisez votre étude par SMS :</span>
+      <input type="tel" id="tel-banner-input" name="telephone" class="tel-banner__input" placeholder="06 12 34 56 78" required />
+      <button type="submit" class="tel-banner__btn">Recevoir un SMS</button>
     </form>
   </div>
 </section>
 
-<main id="main" data-hide-after-sim="1">
-  
-  <section class="steps">
+<main id="main" tabindex="-1">
+  <section id="steps" class="steps" data-hide-after-sim="1">
     <div class="steps__inner">
-      <h2>Simulateur précis & sans engagement</h2>
+      <h2>Simulateur de reste à charge : simple et précis</h2>
+      <p class="subtitle">Obtenez une estimation claire en 3 étapes</p>
       <div class="sgrid">
         <article class="scard">
-          <div class="sbullet">1</div>
+          <div class="sbullet">01</div>
           <h3>Votre situation</h3>
-          <p>Indiquez votre logement et chauffage actuel.</p>
+          <p>Vous indiquez votre logement et chauffage actuel.</p>
         </article>
         <article class="scard">
-          <div class="sbullet">2</div>
+          <div class="sbullet">02</div>
           <h3>Calcul des aides</h3>
-          <p>Estimation MaPrimeRénov’ + Primes CEE.</p>
+          <p>Estimation MaPrimeRénov’ et primes CEE.</p>
         </article>
         <article class="scard">
-          <div class="sbullet">3</div>
-          <h3>Résultat</h3>
-          <p>Découvrez votre reste à charge immédiatement.</p>
+          <div class="sbullet">03</div>
+          <h3>Votre reste à charge</h3>
+          <p>Projection du coût final en toute transparence.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="benefits">
+  <section id="focus-adou" class="split" data-hide-after-sim="1">
+    <div class="split__inner">
+      <div class="split__media">
+        <img src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/3e5aec40da5e0a7d512fb57b4c286441facf1d68/pac%20glace.webp" alt="Pompe à chaleur" width="520" height="700" loading="lazy">
+      </div>
+      <div class="split__content">
+        <p class="product-name">Pompe à chaleur air/eau</p>
+        <h2>La solution qui change votre facture</h2>
+        <p class="lead">Un équipement dimensionné pour votre maison.</p>
+        <ul class="bullets">
+          <li>Jusqu’à <strong>60%</strong> d’économies chauffage.</li>
+          <li>Compatible avec les aides (MaPrimeRénov’, CEE).</li>
+          <li>Installation par professionnel RGE.</li>
+        </ul>
+        <a href="#simulateur" class="cta">Vérifier mon éligibilité</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="benefits" class="benefits" data-hide-after-sim="1">
     <div class="benefits__inner">
-      <h2>Pourquoi passer à la pompe à chaleur ?</h2>
+      <h2>Des résultats visibles dès les premières factures</h2>
       <div class="bgrid">
         <article class="bcard">
           <div class="bicon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-          <h3>Jusqu'à 60% d'économies</h3>
-          <p>Sur votre facture de chauffage annuelle.</p>
+          <h3>Économies d’énergie</h3>
+          <p>Consommez jusqu’à 3 fois moins d’énergie.</p>
         </article>
         <article class="bcard">
           <div class="bicon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3>Confort stable</h3>
-          <p>Une chaleur douce et homogène toute l'année.</p>
-        </article>
-        <article class="bcard">
-          <div class="bicon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/></svg></div>
-          <h3>Valorisation</h3>
-          <p>Augmentez la valeur verte (DPE) de votre maison.</p>
+          <h3>Confort de chauffe</h3>
+          <p>Une chaleur douce et homogène.</p>
         </article>
         <article class="bcard">
           <div class="bicon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div>
-          <h3>Écologique</h3>
-          <p>Réduisez drastiquement votre empreinte carbone.</p>
+          <h3>Impact réduit</h3>
+          <p>Moins d’émissions de CO₂ qu'une chaudière fioul/gaz.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="faq">
-    <div class="faq__inner">
-      <h2>Questions Fréquentes</h2>
-      <div class="faq__list">
-        <article class="faq__item">
-          <button class="faq__btn" aria-expanded="false">Le reste à charge à 1 € existe-t-il encore ?</button>
-          <div class="faq__panel"><p>Oui, pour certains foyers très modestes grâce au cumul des aides CEE et MaPrimeRénov'. Notre simulateur le vérifie pour vous.</p></div>
+  <section id="process" class="process" data-hide-after-sim="1">
+    <div class="process__inner">
+      <h2>Comment se passe l’installation ?</h2>
+      <div class="pline"><span class="pnode n1">1</span><span class="pnode n2">2</span><span class="pnode n3">3</span></div>
+      <div class="prow">
+        <article class="pstep">
+          <div class="picon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg></div>
+          <h3>Étude & Éligibilité</h3>
+          <p>Analyse de votre logement et vos droits aux aides.</p>
         </article>
-        <article class="faq__item">
-          <button class="faq__btn" aria-expanded="false">Dois-je avancer les frais ?</button>
-          <div class="faq__panel"><p>Dans la plupart des cas, les primes sont déduites directement de votre facture. Vous ne payez que le reste à charge.</p></div>
+        <article class="pstep">
+          <div class="picon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+          <h3>Installation</h3>
+          <p>Pose par un technicien RGE, raccordement et réglages.</p>
         </article>
-        <article class="faq__item">
-          <button class="faq__btn" aria-expanded="false">Quelle garantie sur l'installation ?</button>
-          <div class="faq__panel"><p>L'installation est garantie (décennale) et le matériel bénéficie de la garantie constructeur (généralement 2 à 5 ans).</p></div>
+        <article class="pstep">
+          <div class="picon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          <h3>Suivi & Confort</h3>
+          <p>Contrôle du fonctionnement et conseils d'utilisation.</p>
         </article>
       </div>
     </div>
   </section>
+
+  <section id="testi" class="testi" data-hide-after-sim="1">
+    <div class="testi__inner">
+      <h2>Ils ont installé une pompe à chaleur</h2>
+      <div class="testi__grid">
+        <article class="tcard">
+          <div class="tcard__top">
+            <div class="avatar">JT</div>
+            <div><div class="tcard__name">Jérôme T.</div><div class="tcard__loc">Maison individuelle · 2025</div></div>
+          </div>
+          <div class="tcard__stars">★★★★★</div>
+          <p class="tcard__quote">“J’ai fait la simulation, résultat immédiat. Les factures ont baissé et la maison est plus agréable.”</p>
+        </article>
+        <article class="tcard">
+          <div class="tcard__top">
+            <div class="avatar">CR</div>
+            <div><div class="tcard__name">Claire R.</div><div class="tcard__loc">Pavillon · 2025</div></div>
+          </div>
+          <div class="tcard__stars">★★★★★</div>
+          <p class="tcard__quote">“Infos claires, sans harcèlement. La PAC a été posée en quelques jours, super confort.”</p>
+        </article>
+        <article class="tcard">
+          <div class="tcard__top">
+            <div class="avatar">NV</div>
+            <div><div class="tcard__name">Nadine V.</div><div class="tcard__loc">Maison de famille · 2025</div></div>
+          </div>
+          <div class="tcard__stars">★★★★☆</div>
+          <p class="tcard__quote">“Je craignais le prix, mais avec les aides c'était faisable. Différence nette sur les factures.”</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="faq" data-hide-after-sim="1">
+    <div class="faq__inner">
+      <h2>Questions fréquentes</h2>
+      <div class="faq__list">
+        <article class="faq__item">
+          <button class="faq__btn" aria-expanded="false">Qu’est-ce qu’une pompe à chaleur air/eau ?</button>
+          <div class="faq__panel"><p>Elle récupère les calories de l'air extérieur pour chauffer l'eau de vos radiateurs. Elle produit plus d'énergie qu'elle n'en consomme.</p></div>
+        </article>
+        <article class="faq__item">
+          <button class="faq__btn" aria-expanded="false">Le reste à charge à 1 € est-il encore possible ?</button>
+          <div class="faq__panel"><p>Oui, pour certains foyers très modestes grâce au cumul optimisé CEE + MaPrimeRénov'. Le simulateur vérifie votre éligibilité.</p></div>
+        </article>
+        <article class="faq__item">
+          <button class="faq__btn" aria-expanded="false">Dois-je être propriétaire ?</button>
+          <div class="faq__panel"><p>Oui, les aides principales sont réservées aux propriétaires de leur résidence principale (logement de plus de 15 ans).</p></div>
+        </article>
+        <article class="faq__item">
+          <button class="faq__btn" aria-expanded="false">L'installation est-elle bruyante ?</button>
+          <div class="faq__panel"><p>Les modèles récents sont très silencieux (niveau sonore proche d'un réfrigérateur). L'unité extérieure est placée stratégiquement.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div id="mentions-popup" role="dialog" aria-modal="true" style="display:none;">
+    <button id="close-mentions">&times;</button>
+    <strong>Mentions légales :</strong><br>
+    Page partenaire Biofrance Énergies — hébergée par cioo.io<br>
+    SIRET : 422 231 928 00025<br>
+    Adresse : 4 rue du Pont Saint Jean, 27530 Ézy-sur-Eure<br>
+    Contact : contact.cioo.io@gmail.com
+  </div>
 </main>
 
 <footer class="footer-cta" data-hide-after-sim="1">
   <div class="footer-cta__inner">
-    <h2>Passez à l'énergie de demain</h2>
-    <a href="#simulateur" class="cta">Vérifier mon éligibilité</a>
-    <div class="footer-legal">
-        <br>
-        <small>© 2025 Biofrance Energies - Hébergé sur GitHub Pages</small>
+    <div class="footer-cta__left">
+      <img src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/3834240d194261faa6c1e5bad7f8a99d44c41576/camio%20BF.webp" alt="Camion Biofrance" class="footer-cta__img" loading="lazy">
+    </div>
+    <div class="footer-cta__right">
+      <h2>Votre installateur prêt à intervenir</h2>
+      <p>Étude, pose et accompagnement administratif.</p>
+      <a href="#simulateur" class="cta">Vérifier mon éligibilité</a>
     </div>
   </div>
+  <div class="footer-legal"><span id="mentions-legales-link">Mentions légales</span></div>
 </footer>
 
 <div id="cookie-toast" class="cookie-toast">
   <div class="cookie-header">
     <p class="cookie-title">Confidentialité</p>
   </div>
-  <p class="cookie-text">Ce site utilise des cookies pour analyser le trafic.</p>
+  <p class="cookie-text">Nous utilisons des cookies pour mesurer la performance de nos campagnes.</p>
   <div class="cookie-actions">
     <button id="btn-decline" class="btn-ghost">Refuser</button>
     <button id="btn-accept" class="btn-primary-cookie">Accepter</button>
