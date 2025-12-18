@@ -822,3 +822,28 @@ body.results-visible #focus-adou { display: none !important; }
   box-shadow: 0 6px 20px rgba(234, 88, 12, 0.6) !important; /* L'ombre grandit */
   cursor: pointer;
 }
+/* =========================================================
+   DEBUG : FORCER LE FORMULAIRE A FONCTIONNER
+   ========================================================= */
+
+/* 1. On force la carte à passer au-dessus de tout (Hero, Textes, etc.) */
+.card, #simulateur {
+    position: relative !important;
+    z-index: 1000 !important; /* Priorité maximale */
+    pointer-events: auto !important; /* Force la détection du clic */
+}
+
+/* 2. On s'assure que le bouton "Suivant" n'est pas bloqué */
+#step-next {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 1001 !important;
+}
+
+/* 3. On s'assure que les champs (Input) sont accessibles */
+.inp, .sel {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 1001 !important;
+}
