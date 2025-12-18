@@ -2230,91 +2230,99 @@ body.results-visible #focus-adou { display: none !important; }
   padding-right: 20px;
 }
 /* =================================================================
-   [[ MOBILE : REORGANISATION INTELLIGENTE (PLAN "FILET DE SECURITE") ]]
+   [[ MOBILE : NETTOYAGE DU HAUT DE PAGE + ORDRE OPTIMISÉ ]]
+   Remplace le bloc précédent à la fin de ton fichier CSS.
    ================================================================= */
 
 @media (max-width: 900px) {
 
-    /* 1. On transforme le conteneur principal en colonne flexible */
+    /* 1. Le conteneur principal du haut */
+    .hero {
+        height: auto !important; /* On laisse la hauteur s'adapter */
+        padding-bottom: 30px;    /* Un peu d'espace en bas */
+    }
+
     .hero__inner {
         display: flex;
         flex-direction: column;
-        padding-top: 0 !important; /* On colle le tout vers le haut */
+        /* IMPORTANT : On ajoute 80px de marge en haut.
+           C'est ça qui empêche le texte de passer sous les logos ! */
+        padding-top: 80px !important;
     }
 
-    /* 2. LA MAGIE : On "éclate" le conteneur de texte pour trier ses enfants */
+    /* 2. On "éclate" le bloc de texte pour pouvoir trier ses éléments */
     .hero__copy {
-        display: contents; /* Ce div devient invisible structurellement */
+        display: contents;
     }
 
-    /* --- GROUPE 1 : CE QUI RESTE EN HAUT (Hameçon) --- */
-    
-    /* Le petit sur-titre "Offre encadrée..." */
+    /* --- POSITION 1 : Le petit sur-titre "Offre encadrée..." --- */
     .hero__intro {
         order: 1;
         text-align: center;
-        margin-top: 10px;
-        margin-bottom: 5px;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        margin: 0 0 10px 0; /* Un peu d'espace en dessous */
+        color: #e0f2fe; /* Couleur claire pour bien ressortir */
     }
 
-    /* Le Grand Titre (Réduit) */
+    /* --- POSITION 2 : Le Grand Titre (BEAUCOUP plus petit et compact) --- */
     .hero__copy h1 {
         order: 2;
-        font-size: 1.8rem !important; /* Plus petit */
+        /* On réduit drastiquement la taille pour mobile */
+        font-size: 1.6rem !important;
+        line-height: 1.2 !important;
         text-align: center;
-        margin-bottom: 10px;
-        line-height: 1.1;
+        /* On réduit les marges autour pour le coller au formulaire */
+        margin: 0 0 15px 0 !important;
+        max-width: none !important;
     }
 
-    /* Le sous-titre "Pour les foyers..." */
+    /* --- POSITION 3 : Le sous-titre "Pour les foyers..." (ON LE CACHE) --- */
+    /* C'est du "gras" inutile sur mobile qui repousse le formulaire. On l'enlève. */
     .hero__copy .lead {
-        order: 3;
-        font-size: 1rem !important;
-        text-align: center;
-        margin-bottom: 20px;
-        padding: 0 10px;
+        display: none !important;
     }
 
-    /* --- GROUPE 2 : L'ACTION (Le Formulaire) --- */
-    
+    /* --- POSITION 4 : LE FORMULAIRE (Il remonte !) --- */
     #simulateur.card {
-        order: 4; /* On le met juste après le titre/sous-titre */
-        margin: 0 -10px 30px -10px !important; /* On l'élargit un peu */
+        order: 3;
+        /* On le colle juste sous le titre */
+        margin-top: 5px !important;
+        /* On l'élargit pour qu'il soit confortable à utiliser */
+        margin-left: -12px !important;
+        margin-right: -12px !important;
         width: auto !important;
         max-width: none !important;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+        /* Une ombre portée pour le faire ressortir */
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3) !important;
     }
 
-    /* --- GROUPE 3 : LA RÉASSURANCE (En dessous du bouton) --- */
-
-    /* Les 3 coches vertes (Offre encadrée, RGE...) */
-    .hero-bullets {
-        order: 5;
-        margin-top: 0;
-        margin-bottom: 20px;
-        padding: 0 20px; /* Un peu de marge sur les côtés */
-    }
+    /* --- POSITION 5 & 6 : LA RÉASSURANCE (En dessous) --- */
     
-    /* On aligne les coches proprement */
+    /* Les 3 coches vertes */
+    .hero-bullets {
+        order: 4;
+        margin-top: 30px; /* Espace après le formulaire */
+        margin-bottom: 15px;
+        padding: 0 15px;
+    }
+    /* Alignement à gauche plus propre pour une liste */
     .hero-bullets li {
-        font-size: 0.9rem;
-        margin-bottom: 8px;
-        justify-content: flex-start; /* Aligné à gauche c'est plus lisible pour des listes */
+        justify-content: flex-start;
+        text-align: left;
     }
 
-    /* Le petit texte légal sur les 1€ (Celui qui bloquait tout !) */
+    /* Le petit texte légal sur le 1€ */
     .hero-small {
-        order: 6;
+        order: 5;
         text-align: center;
         font-size: 0.75rem !important;
         opacity: 0.7;
-        margin-bottom: 40px; /* Un peu d'air en bas */
-        padding: 0 20px;
+        margin-bottom: 20px;
+        padding: 0 15px;
     }
 
-    /* Ajustement de l'image de fond pour qu'elle ne gêne pas */
-    .hero__img {
-        opacity: 0.2; /* On l'assombrit encore pour la lisibilité */
+    /* On assombrit l'image de fond pour que le texte soit toujours lisible */
+    .hero::before {
+        background: linear-gradient(to bottom, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.85) 100%) !important;
     }
 }
