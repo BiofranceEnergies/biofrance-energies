@@ -1,33 +1,22 @@
 /* =================================================================
-   VARIABLES (RETOUR AU DARK MODE PREMIUM)
+   VARIABLES & RESET (RETOUR AU DESIGN DARK PREMIUM)
    ================================================================= */
 :root {
   --maxw: 1200px;
   
-  /* Retour au fond sombre "Biofrance" */
+  /* COULEURS DARK MODE (Ton design original) */
   --bg-page: #0b1220;       /* Bleu nuit profond */
-  --bg-soft: #111827;       /* Un poil plus clair pour les sections alternées */
-  --ink: #f1f5f9;           /* Texte blanc cassé */
+  --bg-card: rgba(17, 24, 39, 0.7); /* Fond des cartes semi-transparent */
+  --ink: #ffffff;           /* Texte principal blanc */
   --muted: #94a3b8;         /* Texte secondaire gris clair */
-  --border: rgba(255, 255, 255, 0.15); /* Bordures subtiles */
-
-  /* Identité */
-  --brand: #38bdf8;         /* Bleu ciel lumineux pour les titres */
+  --border: rgba(255, 255, 255, 0.12); /* Bordures fines */
   
-  /* ACTION (CTA) - On garde l'Orange car il marche super bien sur le sombre */
-  --cta-grad-top: #f59e0b; 
+  /* ACTION */
+  --cta-grad-top: #f59e0b;  /* Orange */
   --cta-grad-bot: #ea580c; 
   --cta-text: #ffffff;
-  --cta-shadow: rgba(234, 88, 12, 0.4);
-
-  /* Accents */
-  --accent-bg: rgba(255, 255, 255, 0.08);
-  --accent-stroke: #f59e0b;
 }
 
-/* =================================================================
-   RESET & BASES
-   ================================================================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -38,11 +27,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Accessibilité */
 .skip-link { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* =================================================================
-   HEADER & LOGOS
+   HEADER & LOGOS (Taille contrôlée)
    ================================================================= */
 .logo-header { position: absolute; top: 24px; left: 24px; z-index: 10; }
 .logo-header img { height: 70px; width: auto; display: block; }
@@ -53,38 +41,37 @@ body {
 }
 .certif-logo {
   height: 45px; width: auto;
-  background: rgba(255,255,255,0.95); /* Fond blanc pour que les logos ressortent */
+  background: rgba(255,255,255,0.95);
   padding: 4px 8px; border-radius: 6px;
 }
 
 @media (max-width: 768px) {
   .logo-header { top: 16px; left: 16px; }
   .logo-header img { height: 40px; }
-  .header-certifs { top: 16px; right: 16px; gap: 6px; }
-  .certif-logo { height: 26px; padding: 2px 4px; border-radius: 4px; }
+  .header-certifs { top: 16px; right: 16px; gap: 8px; }
+  .certif-logo { height: 28px; padding: 2px 4px; border-radius: 4px; }
 }
 
 /* =================================================================
-   HERO SECTION (DARK)
+   HERO SECTION (Le design sombre que tu aimes)
    ================================================================= */
 header.hero {
   position: relative; min-height: 750px;
   display: flex; align-items: center;
-  background-color: #0b1220;
   overflow: hidden;
+  background-color: #0b1220;
 }
 
-/* Image sombre */
 .hero__img {
   position: absolute; inset: 0; z-index: -2;
   width: 100%; height: 100%; object-fit: cover;
-  object-position: 70% center; opacity: 0.6; /* On l'assombrit pour lire le texte */
+  object-position: center; opacity: 0.5; /* Assombri pour lire le texte */
 }
 
-/* Dégradé sombre pour protéger le texte */
+/* Dégradé de protection pour le texte */
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(90deg, #0b1220 0%, rgba(11,18,32,0.95) 40%, rgba(11,18,32,0.4) 100%);
+  background: linear-gradient(90deg, #0b1220 0%, rgba(11,18,32,0.9) 45%, rgba(11,18,32,0.4) 100%);
 }
 
 .hero__inner {
@@ -93,22 +80,21 @@ header.hero {
   position: relative; z-index: 1;
 }
 
+/* Textes Hero */
 .hero__intro {
   color: #38bdf8; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.05em; margin-bottom: 12px; font-size: 0.9rem;
 }
-
 .hero__copy h1 {
-  color: #ffffff; font-size: clamp(32px, 4vw, 52px);
+  color: #fff; font-size: clamp(32px, 4vw, 52px);
   line-height: 1.1; font-weight: 800; margin-bottom: 20px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
-
 .hero__copy .lead {
   color: #cbd5e1; font-size: 1.1rem; font-weight: 500;
   max-width: 580px; margin-bottom: 24px;
 }
 
+/* Puces */
 .hero-bullets { list-style: none; padding: 0; }
 .hero-bullets li {
   display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
@@ -117,24 +103,24 @@ header.hero {
 .hero-bullets svg {
   width: 20px; height: 20px; fill: none; stroke: #22c55e; stroke-width: 2.5;
 }
-
 .hero-small { font-size: 0.75rem; color: #64748b; margin-top: 16px; }
 
+/* Responsive Hero */
 @media (max-width: 900px) {
-  header.hero { display: block; padding-top: 100px; padding-bottom: 60px; min-height: auto; }
+  header.hero { display: block; padding: 100px 0 60px; min-height: auto; }
   .hero__inner { grid-template-columns: 1fr; gap: 40px; }
-  .hero::before { background: linear-gradient(180deg, #0b1220 0%, rgba(11,18,32,0.8) 100%); }
+  .hero::before { background: linear-gradient(180deg, #0b1220 0%, rgba(11,18,32,0.7) 100%); }
 }
 
 /* =================================================================
-   LA CARTE FORMULAIRE (DARK STYLE)
+   CARTE FORMULAIRE (Réparation du style)
    ================================================================= */
 .card {
   width: 460px; max-width: 100%;
-  background: rgba(17, 24, 39, 0.95); /* Fond sombre semi-transparent */
+  background: rgba(15, 23, 42, 0.85); /* Fond sombre vitré */
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   margin-top: 20px;
   overflow: hidden;
@@ -148,19 +134,20 @@ header.hero {
 
 .card__body { padding: 24px; }
 
+/* Progression */
 .card-progress__text { text-align: right; font-size: 0.85rem; color: #94a3b8; margin-bottom: 6px; }
 .card-progress__bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 99px; }
 .card-progress__fill { height: 100%; background: #38bdf8; width: 20%; transition: width 0.3s; }
 
+/* Champs Inputs (Style Sombre lisible) */
 .card-step__title { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-.card-step__question { color: #cbd5e1; margin-bottom: 16px; font-size: 0.95rem; }
+.card-step__question { color: #cbd5e1; margin-bottom: 16px; }
 
-/* Champs de saisie SOMBRES */
 .inp, .sel {
   width: 100%; padding: 14px 16px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px; color: #fff;
+  border-radius: 8px; color: #fff;
   font-size: 1rem; outline: none; transition: 0.2s;
 }
 .inp:focus, .sel:focus {
@@ -168,88 +155,82 @@ header.hero {
 }
 .sel option { background: #0b1220; color: #fff; }
 
-/* Boutons */
+/* Boutons Navigation */
 .card-nav { display: flex; gap: 12px; margin-top: 24px; }
 .btn-secondary {
   padding: 0 20px; height: 52px; background: transparent;
-  border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
   color: #cbd5e1; cursor: pointer;
 }
-.btn-secondary:hover { border-color: #fff; color: #fff; }
-
 .cta, #step-next {
   flex: 1; height: 52px; display: flex; align-items: center; justify-content: center;
   background: linear-gradient(135deg, #f59e0b, #ea580c);
   color: #fff; font-weight: 700; font-size: 1.05rem;
-  border: none; border-radius: 12px; cursor: pointer;
+  border: none; border-radius: 8px; cursor: pointer;
   box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
-  transition: transform 0.2s;
 }
 .cta:hover, #step-next:hover { transform: translateY(-2px); filter: brightness(1.1); }
 .form-note { font-size: 0.75rem; color: #64748b; margin-top: 16px; text-align: center; }
 
 /* =================================================================
-   CORRECTION DES ÉTOILES & ICÔNES (LE FIX CRITIQUE)
+   CORRECTION CRITIQUE DES ICÔNES (ÉTOILES & COCHES)
    ================================================================= */
 .sgrid, .bgrid, .mgrid { display: grid; gap: 24px; max-width: var(--maxw); margin: 0 auto; }
 .sgrid { grid-template-columns: repeat(3, 1fr); }
 .bgrid { grid-template-columns: repeat(4, 1fr); }
 
-/* On limite la taille des SVGs pour qu'ils n'explosent pas */
+/* On FORCE la taille des ronds d'icônes pour éviter l'explosion */
 .sbullet, .bicon, .micon, .picon, .avatar {
-  width: 50px; height: 50px; /* Taille fixe obligatoire */
+  width: 56px; height: 56px;
   border-radius: 50%; display: grid; place-items: center; margin-bottom: 16px;
   flex-shrink: 0; /* Empêche l'écrasement */
 }
 
-/* Style spécifique dark */
+/* Styles Icônes */
 .sbullet { background: linear-gradient(135deg, #f59e0b, #ea580c); color: #fff; font-weight: 800; margin: 0 auto 20px; }
 .bicon, .micon, .picon { background: rgba(255,255,255,0.08); }
-.bicon svg, .micon svg, .picon svg { width: 24px; height: 24px; stroke: #38bdf8; fill: none; stroke-width: 2; }
+.bicon svg, .micon svg, .picon svg { width: 28px; height: 28px; stroke: #38bdf8; fill: none; stroke-width: 2; }
 
-/* Cartes */
+/* Cartes (Benefits, Steps) */
 .scard, .bcard, .mcard, .tcard {
-  background: var(--bg-soft); border: 1px solid var(--border);
-  border-radius: 16px; padding: 24px; transition: transform 0.2s;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; transition: transform 0.2s;
 }
-.scard:hover, .bcard:hover { transform: translateY(-4px); border-color: #38bdf8; }
+.scard:hover, .bcard:hover { border-color: #38bdf8; }
 
 .scard h3, .bcard h3, .mcard h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
 .scard p, .bcard p, .mcard p { font-size: 0.95rem; color: #cbd5e1; }
 .scard { text-align: center; }
 
-/* FIX ÉTOILES TÉMOIGNAGES */
+/* --- RÉPARATION DES ÉTOILES GEANTES --- */
 .testi__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: var(--maxw); margin: 0 auto; }
 .tcard__stars { display: flex; gap: 4px; margin: 8px 0 12px; }
 .tcard__stars svg {
-  width: 16px !important; height: 16px !important; /* FORCE LA TAILLE */
-  fill: #f59e0b;
-  flex: 0 0 16px; /* Empêche l'étirement flex */
+  width: 18px !important; height: 18px !important; /* Taille forcée */
+  fill: #f59e0b; /* Jaune/Orange */
+  flex: 0 0 18px;
 }
 .tcard__quote { font-style: italic; color: #cbd5e1; }
 .avatar { background: rgba(255,255,255,0.1); color: #38bdf8; font-weight: 700; }
 
-/* =================================================================
-   CORRECTION GROS CHECKMARK VERT
-   ================================================================= */
+/* --- RÉPARATION DE LA COCHE VERTE GEANTE --- */
+.steps__check { margin-top: 24px; text-align: center; }
 .steps__check svg {
-  width: 64px !important; height: 64px !important; /* Taille raisonnable */
+  width: 64px !important; height: 64px !important; /* Taille forcée */
   display: inline-block;
 }
-.steps__check { margin-top: 24px; text-align: center; }
 
 /* =================================================================
-   SECTIONS & TITRES
+   TITRES & SECTIONS
    ================================================================= */
 section { padding: 80px 24px; }
 h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: #fff; margin-bottom: 12px; text-align: center; }
 .subtitle { text-align: center; color: #94a3b8; max-width: 700px; margin: 0 auto 48px; }
 
-/* RÉSULTATS (Masqué par défaut) */
+/* Résultats (Masqué par défaut) */
 #recap { margin: 60px auto; max-width: 900px; display: none; }
 .rc-wrap {
-  background: #fff; /* On garde le résultat en clair pour contraster ou sombre au choix. Ici Blanc pour l'effet "Papier officiel" */
-  color: #0f172a;
+  background: #fff; color: #0f172a; /* Résultat en blanc type "papier" */
   border-radius: 20px; padding: 40px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
 }
@@ -258,26 +239,24 @@ h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: #fff; margi
 .rc-details__list li { border-bottom: 1px dashed #e2e8f0; padding: 8px 0; display: flex; justify-content: space-between; }
 .rc-details__list strong { color: #0f172a; }
 
-/* Image produit (AUX) - Fix background */
-.prod { background: #fff; color: #000; border-radius: 20px; padding: 40px; margin-top: 40px; }
-.prod__inner { display: flex; align-items: center; gap: 40px; }
-.prod__img { max-width: 300px; width: 100%; }
-
 /* FAQ */
-.faq__item { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; }
-.faq__btn { width: 100%; padding: 18px; background: none; border: none; color: #fff; text-align: left; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; }
+.faq__item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; }
+.faq__btn {
+  width: 100%; padding: 18px; background: none; border: none; 
+  color: #fff; text-align: left; font-weight: 700; cursor: pointer;
+  display: flex; justify-content: space-between;
+}
 .faq__panel { padding: 0 18px 18px; display: none; color: #cbd5e1; }
 .faq__item.is-open .faq__panel { display: block; }
 
 /* Footer */
 .footer-cta { background: #000; padding: 60px 24px; text-align: center; margin-top: 40px; }
+.footer-cta h2 { color: #fff; }
 
-/* Mobile adjustments */
+/* Mobile fixes */
 @media (max-width: 900px) {
   .sgrid, .bgrid, .mgrid, .testi__grid { grid-template-columns: 1fr; }
   .rc-wrap { grid-template-columns: 1fr; }
-  .prod__inner { flex-direction: column; }
 }
 
-/* Mentions légales */
-#mentions-popup { background: #1e293b; color: #fff; border: 1px solid #334155; }
+#mentions-popup { background: #1e293b; color: #fff; border: 1px solid #334155; padding: 20px; border-radius: 12px; }
