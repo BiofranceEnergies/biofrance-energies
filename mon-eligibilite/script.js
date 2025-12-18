@@ -1,515 +1,147 @@
-/* =========================================================
-   FAQ — Accordéon
-   ========================================================= */
-(function () {
-  function setPanelHeight(panel) {
-    if (!panel) return;
-    panel.style.maxHeight = "0px";
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        const h = panel.scrollHeight;
-        panel.style.maxHeight = h + "px";
-        const onEnd = (e) => {
-          if (e.propertyName !== "max-height") return;
-          panel.style.maxHeight = "none";
-          panel.removeEventListener("transitionend", onEnd);
-        };
-        panel.addEventListener("transitionend", onEnd);
-      })
-    );
-  }
+document.addEventListener("DOMContentLoaded", function () {
+  
+  /* --- 1. NAVIGATION SIMULATEUR --- */
+  const steps = Array.from(document.querySelectorAll(".card-step"));
+  const btnNext = document.getElementById("step-next");
+  const btnPrev = document.getElementById("step-prev");
+  const stepCurrentSpan = document.getElementById("step-current");
+  const stepBar = document.getElementById("step-bar");
+  
+  let currentStep = 0;
+  const totalSteps = steps.length;
 
-  function closePanel(panel) {
-    if (!panel) return;
-    if (getComputedStyle(panel).maxHeight === "none") {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-      void panel.offsetHeight;
-    }
-    panel.style.maxHeight = "0px";
-  }
-
-  function openItem(btn) {
-    const panel = btn.nextElementSibling;
-    document.querySelectorAll('.faq__btn[aria-expanded="true"]').forEach((b) => {
-      if (b !== btn) {
-        b.setAttribute("aria-expanded", "false");
-        closePanel(b.nextElementSibling);
-        b.closest(".faq__item")?.classList.remove("is-open");
-      }
+  function updateUI() {
+    steps.forEach((el, index) => {
+      el.style.display = index === currentStep ? "block" : "none";
     });
-    btn.setAttribute("aria-expanded", "true");
-    btn.closest(".faq__item")?.classList.add("is-open");
-    setPanelHeight(panel);
-  }
+    
+    // Progress Bar
+    const progress = ((currentStep + 1) / totalSteps) * 100;
+    stepBar.style.width = `${progress}%`;
+    stepCurrentSpan.textContent = currentStep + 1;
 
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".faq__btn");
-    if (!btn) return;
-    const isOpen = btn.getAttribute("aria-expanded") === "true";
-    const panel = btn.nextElementSibling;
-    const it = btn.closest(".faq__item");
-    if (isOpen) {
-      btn.setAttribute("aria-expanded", "false");
-      it?.classList.remove("is-open");
-      closePanel(panel);
+    // Buttons
+    btnPrev.style.visibility = currentStep === 0 ? "hidden" : "visible";
+    if (currentStep === totalSteps - 1) {
+      btnNext.textContent = "Calculer mon aide";
     } else {
-      openItem(btn);
+      btnNext.textContent = "Suivant";
     }
-  });
-
-  window.addEventListener("load", () => {
-    const firstBtn = document.querySelector(".faq__btn");
-    if (firstBtn) openItem(firstBtn);
-  });
-
-  window.addEventListener("resize", () => {
-    document
-      .querySelectorAll('.faq__btn[aria-expanded="true"]')
-      .forEach((btn) => setPanelHeight(btn.nextElementSibling));
-  });
-
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(() => {
-      document
-        .querySelectorAll('.faq__btn[aria-expanded="true"]')
-        .forEach((btn) => setPanelHeight(btn.nextElementSibling));
-    });
-  }
-})();
-
-/* =========================================================
-   Mentions légales — Ouverture / Fermeture
-   ========================================================= */
-document.addEventListener("DOMContentLoaded", function () {
-  const link = document.getElementById("mentions-legales-link");
-  const popup = document.getElementById("mentions-popup");
-  const close = document.getElementById("close-mentions");
-  if (!popup || !close) return;
-
-  function openPopup(e) {
-    if (e) e.preventDefault();
-    popup.style.display = "block";
-    close.focus();
-  }
-  function closePopup(e) {
-    if (e) e.preventDefault();
-    popup.style.display = "none";
   }
 
-  if (link) link.addEventListener("click", openPopup);
-  close.addEventListener("click", closePopup);
-
-  document.addEventListener("keydown", (ev) => {
-    if (ev.key === "Escape" && popup.style.display === "block") closePopup();
-  });
-});
-
-/* =========================================================
-   SIMULATEUR PAC – Étapes + Calcul CEE (reste à charge)
-   ========================================================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-  const form  = document.getElementById("form-estimation");
-  const steps = Array.from(document.querySelectorAll("#simulateur .card-step"));
-  if (!form || !steps.length) return;
-
-  const spanCurrent = document.getElementById("step-current");
-  const spanTotal   = document.getElementById("step-total");
-  const bar         = document.getElementById("step-bar");
-  const btnPrev     = document.getElementById("step-prev");
-  const btnNext     = document.getElementById("step-next");
-
-  const recap          = document.getElementById("recap");
-  const recapContent   = document.getElementById("recap-content");
-  const rcCards        = document.getElementById("rc-cards");
-  const rcValMat       = document.getElementById("rc-val-materiel"); // laissé au cas où
-  const telBanner      = document.getElementById("tel-banner");
-  const sectionsToHide = document.querySelectorAll("[data-hide-after-sim='1']");
-
-  const total = steps.length;
-  if (spanTotal) spanTotal.textContent = String(total);
-
-  let currentIndex = 0;
-
-  /* ---------- 1) Navigation entre les étapes ---------- */
-  function showStep(index) {
-    steps.forEach((step, i) => {
-      step.style.display = i === index ? "block" : "none";
-    });
-    currentIndex = index;
-
-    if (spanCurrent) spanCurrent.textContent = String(currentIndex + 1);
-
-    if (bar) {
-      const pct = Math.min(100, ((currentIndex + 1) / total) * 100);
-      bar.style.width = pct + "%";
-    }
-
-    if (btnPrev) {
-      btnPrev.style.visibility = currentIndex === 0 ? "hidden" : "visible";
-    }
-if (btnNext) {
-  // Par défaut, le bouton dit toujours "Suivant"
-  btnNext.textContent = "Suivant";
-}
-
- }
-
-  function isCurrentStepValid() {
-    const stepEl = steps[currentIndex];
-    if (!stepEl) return true;
-
-    const fields = stepEl.querySelectorAll("input, select, textarea");
-    for (const field of fields) {
-      if (!field.hasAttribute("required")) continue;
-      if (!field.checkValidity()) {
-        field.reportValidity();
-        field.focus();
-        return false;
-      }
-    }
-    return true;
-  }
-
-  showStep(0);
-   /* ---------- Changer le texte du bouton sur la dernière étape ---------- */
-const selectChauffage = form.querySelector("#chauffage");
-
-if (selectChauffage && btnNext) {
-  selectChauffage.addEventListener("change", function () {
-    if (currentIndex === total - 1 && this.value) {
-      btnNext.textContent = "Afficher mon reste à charge";
-    }
-  });
-}
-/* ---------- Formatage du RFR (convertit 20000 → 20 000 au blur) ---------- */
-const rfrInput = form.querySelector('#rfr');
-
-if (rfrInput) {
-  rfrInput.addEventListener('blur', formatRfr);
-}
-
-function formatRfr() {
-  let val = this.value.replace(/\s/g, '').replace(/[^\d]/g, '');
-  if (!val) {
-    this.value = '';
-    return;
-  }
-  val = parseInt(val, 10).toString();
-  this.value = val.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-}
-/* ---------- Formatage du téléphone (06 12 34 56 78) ---------- */
-const telInput = document.querySelector('#tel-banner input[type="tel"]');
-
-if (telInput) {
-  telInput.addEventListener('input', formatPhone);
-  telInput.addEventListener('blur', formatPhone);
-}
-
-function formatPhone() {
-  let val = this.value.replace(/\D/g, '');
-  val = val.substring(0, 10); // On limite à 10 chiffres
-  const groups = val.match(/.{1,2}/g);
-  this.value = groups ? groups.join(' ') : '';
-}
-  /* ---------- 2) Données CEE & fonctions de calcul ---------- */
-
-  const IDF_DEPARTMENTS = ["75","77","78","91","92","93","94","95"];
-
-  const H1_DEPARTMENTS = [
-    "01","02","03","05","08","10","14","15","19","21","23","25","27","28",
-    "38","39","42","43","45","51","52","54","55","57","58","59","60","61",
-    "62","63","67","68","69","70","71","73","74","75","76","77","78","80",
-    "87","88","89","90","91","92","93","94","95"
-  ];
-
-  const H2_DEPARTMENTS = [
-    "04","07","09","12","16","17","18","22","24","26","29","31","32","33",
-    "35","36","37","40","41","44","46","47","48","49","50","53","56","64",
-    "65","72","79","81","82","84","85","86"
-  ];
-
-  const H3_DEPARTMENTS = ["06","11","13","20","30","34","66","83"];
-
-  const RFR_THRESHOLDS = {
-    hors: {
-      extra: { bleu: 5094, jaune: 6525, violet: 9254 },
-      1: { bleu: 17173, jaune: 22015, violet: 30844 },
-      2: { bleu: 25115, jaune: 32197, violet: 45340 },
-      3: { bleu: 30206, jaune: 38719, violet: 54592 },
-      4: { bleu: 35285, jaune: 45234, violet: 63844 },
-      5: { bleu: 40388, jaune: 51775, violet: 73098 }
-    },
-    idf: {
-      extra: { bleu: 7038, jaune: 8568, violet: 12122 },
-      1: { bleu: 23768, jaune: 28933, violet: 40404 },
-      2: { bleu: 34884, jaune: 42463, violet: 59394 },
-      3: { bleu: 41893, jaune: 51000, violet: 71060 },
-      4: { bleu: 48914, jaune: 59549, violet: 83637 },
-      5: { bleu: 55961, jaune: 68123, violet: 95758 }
-    }
-  };
-
-  // Tableau RAC CEE
-  const RAC_CEE = {
-    BLEU: {
-      H1: { "-70": 1, "70-90": 1, "90-110": 1, "110-130": 1, "130+": 1 },
-      H2: { "-70": 1, "70-90": 1, "90-110": 1, "110-130": 1, "130+": 1 },
-      H3: { "-70": 1, "70-90": 1, "90-110": 1, "110-130": 1, "130+": 1 }
-    },
-    JAUNE: {
-      H1: { "-70": 2500, "70-90": 2500, "90-110": 2500, "110-130": 2500, "130+": 990 },
-      H2: { "-70": 2500, "70-90": 2500, "90-110": 2500, "110-130": 2500, "130+": 2500 },
-      H3: { "-70": 2500, "70-90": 2500, "90-110": 2500, "110-130": 2500, "130+": 2500 }
-    },
-    VIOLET: {
-      H1: { "-70": 5200, "70-90": 4300, "90-110": 3200, "110-130": 2800, "130+": 1400 },
-      H2: { "-70": 5490, "70-90": 4800, "90-110": 3900, "110-130": 3500, "130+": 1900 },
-      H3: { "-70": 7500, "70-90": 7500, "90-110": 7500, "110-130": 7500, "130+": 7500 }
-    }
-  };
-  RAC_CEE.ROSE = RAC_CEE.VIOLET; // même barème pour simplifier
-
-  function getDepartement(cpRaw) {
-    if (!cpRaw) return null;
-    const s = String(cpRaw).trim();
-    if (s.length < 2) return null;
-    if (s.startsWith("97") || s.startsWith("98")) return s.slice(0, 3);
-    return s.slice(0, 2);
-  }
-
-  function getZoneFromCp(cpRaw) {
-    const dep = getDepartement(cpRaw);
-    if (!dep) return null;
-    if (H3_DEPARTMENTS.includes(dep)) return "H3";
-    if (H2_DEPARTMENTS.includes(dep)) return "H2";
-    if (H1_DEPARTMENTS.includes(dep)) return "H1";
-    return null;
-  }
-
-  function isIleDeFrance(dep) {
-    return dep && IDF_DEPARTMENTS.includes(dep);
-  }
-
-  function parseEuro(inputValue) {
-    if (inputValue == null) return NaN;
-    const s = String(inputValue).replace(/\s/g, "").replace(",", ".");
-    const n = parseFloat(s);
-    return Number.isFinite(n) ? Math.round(n) : NaN;
-  }
-
-  function classifyProfile(rfr, foyerSize, cpRaw) {
-    const dep = getDepartement(cpRaw);
-    const idf = isIleDeFrance(dep);
-    const table = idf ? RFR_THRESHOLDS.idf : RFR_THRESHOLDS.hors;
-
-    const n = Math.max(1, Math.min(parseInt(foyerSize, 10) || 1, 5));
-    const extraPersons = Math.max(0, (parseInt(foyerSize, 10) || 1) - 5);
-
-    const row = table[n];
-    if (!row) return null;
-
-    const bleuMax   = row.bleu   + extraPersons * table.extra.bleu;
-    const jauneMax  = row.jaune  + extraPersons * table.extra.jaune;
-    const violetMax = row.violet + extraPersons * table.extra.violet;
-
-    if (rfr <= bleuMax)   return "BLEU";
-    if (rfr <= jauneMax)  return "JAUNE";
-    if (rfr <= violetMax) return "VIOLET";
-    return "ROSE";
-  }
-
-  function getRac(profile, zone, surfaceKey) {
-    if (!profile || !zone || !surfaceKey) return null;
-    const p = RAC_CEE[profile];
-    if (!p) return null;
-    const z = p[zone];
-    if (!z) return null;
-    return z[surfaceKey] != null ? z[surfaceKey] : null;
-  }
-
-  /* ---------- 3) Calcul principal PAC / CEE ---------- */
-
-  function runPacSimulation() {
-    const cp        = form.querySelector('#cp')?.value || '';
-    const foyerVal  = form.querySelector('#foyer')?.value || '';
-    const surface   = form.querySelector('#surface')?.value || '';
-    const rfrRaw    = form.querySelector('#rfr')?.value || '';
-    const chauffage = form.querySelector('#chauffage')?.value || '';
-
-    const errors = [];
-
-    if (!cp || cp.trim().length < 4) {
-      errors.push("Merci d’indiquer un code postal valable.");
-    }
-    if (!surface) {
-      errors.push("Merci d’indiquer la surface habitable.");
-    }
-    if (!foyerVal) {
-      errors.push("Merci d’indiquer le nombre de personnes dans le foyer fiscal.");
-    }
-
-    const rfr = parseEuro(rfrRaw);
-    if (!rfr || rfr <= 0) {
-      errors.push("Merci d’indiquer votre revenu fiscal de référence.");
-    }
-
-    if (!chauffage) {
-      errors.push("Merci de préciser le chauffage principal actuel.");
-    }
-
-    if (errors.length) {
-      alert(errors[0]);
-      return;
-    }
-
-    // --- Calcul CEE / profil ---
-    const dep      = getDepartement(cp);
-    const zone     = getZoneFromCp(cp) || 'H2';
-    const foyerInt = parseInt(foyerVal, 10) || 1;
-    const profile  = classifyProfile(rfr, foyerInt, cp);   // BLEU / JAUNE / VIOLET / ROSE
-    const rac      = getRac(profile, zone, surface);       // reste à charge estimé
-
-    if (rac == null) {
-      alert("Impossible de calculer le reste à charge avec ces paramètres.");
-      return;
-    }
-
-    // --- Affichage du bloc résultat ---
-    if (recap) recap.style.display = 'block';
-    if (rcCards) rcCards.style.display = 'block';
-
-    const racSpan = document.getElementById('rc-rac-amount');
-    if (racSpan) {
-      racSpan.textContent = rac.toLocaleString('fr-FR') + ' €';
-    }
-
-    // Helpers d’affichage
-    function setText(id, value) {
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
-    }
-
-    function formatSurface(key) {
-      switch (key) {
-        case '-70':     return '< 70 m²';
-        case '70-90':   return '70 à 90 m²';
-        case '90-110':  return '90 à 110 m²';
-        case '110-130': return '110 à 130 m²';
-        case '130+':    return '> 130 m²';
-        default:        return '—';
-      }
-    }
-
-    function getChauffageLabel() {
-      const sel = form.querySelector('#chauffage');
-      if (!sel) return '';
-      const opt = sel.options[sel.selectedIndex];
-      return opt ? opt.textContent : '';
-    }
-
-    // Rappel d’infos
-    setText('rc-dep', dep || '—');
-    setText('rc-zone', zone || '—');
-    setText('rc-profile', profile || '—');
-    setText('rc-foyer', foyerInt + (foyerInt > 1 ? ' personnes' : ' personne'));
-    setText('rc-rfr', rfr.toLocaleString('fr-FR') + ' €');
-    setText('rc-surface', formatSurface(surface));
-    setText('rc-chauffage', getChauffageLabel());
-
-    // Masquer les blocs marqués data-hide-after-sim="1"
-    sectionsToHide.forEach((el) => {
-      el.style.display = "none";
-    });
-
-    // Afficher le bandeau téléphone
-    if (telBanner) {
-      telBanner.classList.add("tel-banner--visible");
-      telBanner.setAttribute("aria-hidden", "false");
-    }
-
-    // Scroll vers les résultats
-    recap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  /* ---------- 4) Clics sur Suivant / Retour ---------- */
-
-  if (btnNext) {
-    btnNext.addEventListener("click", function () {
-      if (currentIndex < total - 1) {
-        if (!isCurrentStepValid()) return;
-        showStep(currentIndex + 1);
-      } else {
-        // Dernière étape : on lance le calcul (pas de submit)
-        if (!isCurrentStepValid()) return;
-        runPacSimulation();
+  btnNext.addEventListener("click", () => {
+    // Validation simple
+    const currentInputs = steps[currentStep].querySelectorAll("input, select");
+    let valid = true;
+    currentInputs.forEach(input => {
+      if (!input.checkValidity()) {
+        input.reportValidity();
+        valid = false;
       }
     });
-  }
 
-  if (btnPrev) {
-    btnPrev.addEventListener("click", function () {
-      if (currentIndex > 0) showStep(currentIndex - 1);
-    });
-  }
-});
-/* =========================================
-   COOKIE TOAST (Logique SaaS Premium)
-   ========================================= */
-document.addEventListener("DOMContentLoaded", function() {
-  const toast = document.getElementById('cookie-toast');
-  const btnAccept = document.getElementById('btn-accept');
-  const btnDecline = document.getElementById('btn-decline');
+    if (!valid) return;
 
-  // Sécurité : si le bandeau n'existe pas dans le HTML, on arrête
-  if (!toast || !btnAccept || !btnDecline) return;
-
-  // 1. Délai d'apparition "SaaS" (0.8 seconde pour laisser l'interface charger)
-  setTimeout(() => {
-    // Si l'utilisateur n'a pas encore choisi (rien dans le stockage)
-    if (!localStorage.getItem('cookieConsent')) {
-      toast.classList.add('is-visible'); // Active l'animation CSS
-      toast.setAttribute('aria-hidden', 'false');
+    if (currentStep < totalSteps - 1) {
+      currentStep++;
+      updateUI();
+    } else {
+      calculateResult();
     }
-  }, 800);
+  });
 
-  // --- 2. Action : ACCEPTER ---
-  btnAccept.addEventListener('click', function() {
-    // A. On envoie le signal "OK" à Google
-    if (typeof gtag === 'function') {
-      gtag('consent', 'update', {
-        'ad_storage': 'granted',
-        'ad_user_data': 'granted',
-        'ad_personalization': 'granted',
-        'analytics_storage': 'granted'
+  btnPrev.addEventListener("click", () => {
+    if (currentStep > 0) {
+      currentStep--;
+      updateUI();
+    }
+  });
+
+  /* --- 2. CALCUL RESULTAT (LOGIQUE CEE SIMPLIFIÉE) --- */
+  function calculateResult() {
+    // Récupération des valeurs
+    const cp = document.getElementById("cp").value;
+    const surface = document.getElementById("surface").value;
+    const foyer = document.getElementById("foyer").value;
+    const rfr = document.getElementById("rfr").value;
+    const chauffage = document.getElementById("chauffage").value;
+
+    // Logique simplifiée pour démo (Tu peux remettre ta logique complexe ici)
+    let rac = "1 €"; // Par défaut cible marketing
+    
+    // Si revenus élevés (RFR > 50000 approximatif pour l'exemple) -> reste à charge plus haut
+    const rfrClean = parseInt(rfr.replace(/\D/g, '')) || 0;
+    if (rfrClean > 35000) {
+      rac = "2 500 €";
+    }
+    if (rfrClean > 60000) {
+      rac = "4 500 €";
+    }
+
+    // Affichage
+    document.getElementById("rc-rac-amount").textContent = rac;
+    document.getElementById("rc-dep").textContent = cp.substring(0, 2);
+    document.getElementById("rc-profile").textContent = rfrClean > 30000 ? "Modeste" : "Très Modeste";
+    document.getElementById("rc-foyer").textContent = foyer + " pers.";
+    document.getElementById("rc-rfr").textContent = rfr;
+    document.getElementById("rc-chauffage").textContent = chauffage;
+
+    // Masquer le hero et afficher le résultat
+    document.getElementById("hero").style.display = "none";
+    document.querySelectorAll('[data-hide-after-sim="1"]').forEach(el => el.style.display = "none");
+    
+    const resultSection = document.getElementById("recap");
+    resultSection.style.display = "block";
+    resultSection.scrollIntoView({ behavior: "smooth" });
+
+    // Afficher bandeau SMS
+    document.querySelector(".tel-banner").classList.add("tel-banner--visible");
+  }
+
+  /* --- 3. FORMATAGE INPUTS --- */
+  // Espace automatique pour le RFR (ex: 20 000)
+  const rfrInput = document.getElementById("rfr");
+  rfrInput.addEventListener("input", function(e) {
+    let val = e.target.value.replace(/\D/g, '');
+    e.target.value = val.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  });
+
+  /* --- 4. FAQ ACCORDÉON --- */
+  document.querySelectorAll(".faq__btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+      
+      // Fermer tous les autres
+      document.querySelectorAll(".faq__btn").forEach(b => {
+        b.setAttribute("aria-expanded", "false");
+        b.parentElement.classList.remove("is-open");
+        b.nextElementSibling.style.maxHeight = null;
       });
+
+      if (!isOpen) {
+        btn.setAttribute("aria-expanded", "true");
+        btn.parentElement.classList.add("is-open");
+        const panel = btn.nextElementSibling;
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  });
+
+  /* --- 5. COOKIE TOAST --- */
+  const toast = document.getElementById("cookie-toast");
+  setTimeout(() => {
+    if(!localStorage.getItem("cookieConsent")) {
+      toast.classList.add("is-visible");
     }
-    
-    // B. On sauvegarde le choix pour ne plus l'embêter
-    localStorage.setItem('cookieConsent', 'accepted');
-    
-    // C. On ferme le toast
-    closeToast();
-  });
+  }, 1000);
 
-  // --- 3. Action : REFUSER / CONTINUER ---
-  btnDecline.addEventListener('click', function() {
-    // A. On ne change rien (Google reste bloqué par défaut comme défini dans le <head>)
-    // B. On sauvegarde juste qu'il a refusé
-    localStorage.setItem('cookieConsent', 'refused');
-    
-    // C. On ferme le toast
-    closeToast();
+  document.getElementById("btn-accept").addEventListener("click", () => {
+    localStorage.setItem("cookieConsent", "accepted");
+    toast.classList.remove("is-visible");
   });
-
-  // Fonction pour fermer avec l'animation inverse
-  function closeToast() {
-    toast.classList.remove('is-visible'); // L'animation CSS de sortie se lance
-    toast.setAttribute('aria-hidden', 'true');
-    
-    // On attend la fin de l'animation CSS (0.4s) avant de masquer complétement
-    setTimeout(() => {
-      toast.style.display = 'none';
-    }, 400);
-  }
+  
+  document.getElementById("btn-decline").addEventListener("click", () => {
+    localStorage.setItem("cookieConsent", "declined");
+    toast.classList.remove("is-visible");
+  });
 });
