@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,45 +6,90 @@
 
   <title>Pompe à chaleur à partir de 1 € – Simulateur d’aides & devis en ligne</title>
   <meta name="description" content="Pompe à chaleur : vérifiez votre éligibilité aux aides (MaPrimeRénov’, CEE, autres dispositifs) et estimez votre reste à charge en 1 minute. Simulation claire, sans engagement." />
-  
-  <!-- ✅ Canonical à adapter à l’URL finale de ta LP PAC -->
+   
   <link rel="canonical" href="https://cioo.io/biofrance-energies/pac-1e.html" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>">
 
-  <!-- Préconnexions utiles -->
   <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
   <link rel="dns-prefetch" href="//raw.githubusercontent.com">
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
 
- 
-
-  <!-- Feuille de style -->
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Force le fond gris clair propre et supprime l'image de fond */
+    #hero {
+      background-image: none !important;
+      background-color: #f1f5f9 !important; /* Gris administratif */
+    }
+    
+    /* Cache l'ancienne image de fond si elle est chargée via HTML */
+    .hero__img {
+      display: none !important;
+    }
+
+    /* Couleurs du texte de gauche pour être lisible sur fond clair */
+    .hero__copy h1 {
+      color: #0b4fbf !important; /* Bleu Biofrance */
+    }
+    .hero__copy .lead {
+      color: #334155 !important; /* Gris foncé */
+    }
+    .hero__copy .lead strong {
+      color: #0f172a !important; /* Presque noir */
+    }
+    .hero__copy .hero-small {
+      color: #64748b !important; /* Gris moyen */
+    }
+    .hero-bullets li {
+      color: #1e293b !important; /* Texte liste foncé */
+      background: rgba(255, 255, 255, 0.5); /* Léger fond blanc sous les puces */
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+
+    /* Ombre portée sur le formulaire pour le faire ressortir */
+    #simulateur.card {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+      /* On garde le fond foncé du formulaire défini dans ton style.css pour le contraste */
+    }
+
+    /* Ajustement badge "Offre encadrée" */
+    .hero__intro {
+        color: #0f172a !important;
+        background-color: #e2e8f0 !important;
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        margin-bottom: 16px;
+    }
+  </style>
 
  <script>
   // 1. On initialise le dataLayer
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
 
-  // 2. CONSENT MODE V2 : On REFUSE tout par défaut (avant que le script Google ne se charge)
+  // 2. CONSENT MODE V2 : On REFUSE tout par défaut
   gtag('consent', 'default', {
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
     'analytics_storage': 'denied',
-    'wait_for_update': 500 // On laisse 500ms au site pour charger les préférences si elles existent déjà
+    'wait_for_update': 500
   });
-</script>
+ </script>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11242044118"></script>
+ <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11242044118"></script>
 
-<script>
+ <script>
   gtag('js', new Date());
   gtag('config', 'AW-11242044118');
-</script>
+ </script>
 
-  <!-- Données structurées : Service (version PAC générique) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -70,7 +114,6 @@
   }
   </script>
 
-  <!-- Données structurées : WebPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -85,8 +128,7 @@
 <body>
 <a href="#main" class="skip-link">Aller au contenu</a>
 
-<header id="hero" class="hero" aria-label="Haut de page pompe à chaleur" style="background-color: #f1f5f9; position: relative;">
-  
+<header id="hero" class="hero" aria-label="Haut de page pompe à chaleur">
   <div class="logo-header" role="img" aria-label="Installateur pompe à chaleur">
     <img
       src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/366982ec2dc3c1959f9abb203791b01733807095/Logo%20biofrance%20energie%20-%203.webp"
@@ -94,7 +136,6 @@
       loading="lazy"
     />
   </div>
-
   <div class="header-certifs">
     <img 
       src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/4613d8e81cad7d01a55e28676de2396777d9b24e/rge.webp" 
@@ -107,190 +148,71 @@
       class="certif-logo"
     />
   </div>
-
+  
   <div class="hero__inner">
-    
-    <div class="hero__copy" style="color: #334155;"> 
-      
-      <p class="hero__intro" style="color: #0f172a; font-weight: 600; background: #e2e8f0; display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.9rem;">
-        ✅ Offre encadrée par le dispositif CEE
-      </p>
+    <div class="hero__copy">
+      <p class="hero__intro">Offre encadrée par le dispositif CEE.</p>
 
-      <h1 style="color: #0b4fbf; margin-top: 16px;">
-        Pompe à chaleur : éligible au reste à charge à 1&nbsp;€*&nbsp;?
-      </h1>
-      
-      <p class="lead" style="color: #475569;">
+      <h1>Pompe à chaleur : éligible au reste à charge à 1&nbsp;€*&nbsp;?</h1>
+      <p class="lead">
         Pour les foyers aux revenus modestes remplaçant une chaudière fioul/gaz.
-        <strong style="color: #0f172a;">Offre financée par les Primes CEE & Aides d'État.</strong>
+        <strong>Offre financée par les Primes CEE & Aides d'État.</strong>
       </p>
 
-      <p class="hero-small" style="font-size: 0.8rem; opacity: 0.8; color: #64748b;">
-        *Le reste à charge de 1 € est soumis à des conditions strictes de ressources (Barèmes CEE Précarité). Faites le test pour vérifier.
+      <p class="hero-small" style="font-size: 0.8rem; opacity: 0.8;">
+        *Le reste à charge de 1 € est soumis à des conditions strictes de ressources (Barèmes CEE Précarité), de zone géographique et du matériel installé. Faites le test pour vérifier votre montant exact.
       </p>
 
       <ul class="hero-bullets">
-        <li style="color: #334155;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="margin-right:8px; vertical-align:middle;">
+        <li>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="#22c55e" stroke-width="2"/>
-            <path d="M7 12.5l3.2 3.2L17 9" stroke="#22c55e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 12.5l3.2 3.2L17 9"
+                  stroke="#22c55e"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
           </svg>
           Offre encadrée (CEE)
         </li>
 
-        <li style="color: #334155;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="margin-right:8px; vertical-align:middle;">
+        <li>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="#22c55e" stroke-width="2"/>
-            <path d="M7 12.5l3.2 3.2L17 9" stroke="#22c55e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 12.5l3.2 3.2L17 9"
+                  stroke="#22c55e"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
           </svg>
           Sous conditions d’éligibilité
         </li>
 
-        <li style="color: #334155;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="margin-right:8px; vertical-align:middle;">
+        <li>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="#22c55e" stroke-width="2"/>
-            <path d="M7 12.5l3.2 3.2L17 9" stroke="#22c55e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 12.5l3.2 3.2L17 9"
+                  stroke="#22c55e"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
           </svg>
           Installation par professionnel RGE
         </li>
       </ul>
 
-      <p class="hero-small" style="color: #94a3b8;">
-        *Selon profil et dispositif CEE. Reste à charge variable.
+      <p class="hero-small">
+        *Selon profil et dispositif CEE. Reste à charge variable selon les dossiers.
       </p>
-
     </div>
 
-    <section id="simulateur" role="region" aria-labelledby="formTitle" class="card" style="box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);">
-      <header class="card__head">
-        <h2 id="formTitle" class="t1">Calculez votre reste à charge après aides CEE&nbsp;:</h2>
-        <p class="t2">5 questions simples, résultat indicatif immédiat.</p>
-      </header>
+  <section id="simulateur" role="region" aria-labelledby="formTitle" class="card">
+  <header class="card__head">
+    <h2 id="formTitle" class="t1">Calculez votre reste à charge après aides CEE&nbsp;:</h2>
+    <p class="t2">5 questions simples, résultat indicatif immédiat.</p>
+  </header>
 
-      <div class="card__body">
-        <div class="card-progress">
-          <p class="card-progress__text">
-            Étape <span id="step-current">1</span> sur <span id="step-total">5</span>
-          </p>
-          <div class="card-progress__bar" aria-hidden="true">
-            <div class="card-progress__fill" id="step-bar"></div>
-          </div>
-        </div>
-
-        <form id="form-estimation" action="#" onsubmit="return false" novalidate>
-          <div class="card-step" data-step="1">
-            <h3 class="card-step__title">Votre logement</h3>
-            <p class="card-step__question">Dans quel code postal se situe votre logement&nbsp;?</p>
-            <div class="field">
-              <label class="sr-only" for="cp">Code postal du logement</label>
-              <input
-                id="cp"
-                name="cp"
-                type="text"
-                inputmode="numeric"
-                pattern="[0-9]{5}"
-                maxlength="5"
-                class="inp"
-                placeholder="Ex : 78000 — code postal du logement"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="card-step" data-step="2" style="display:none">
-            <h3 class="card-step__title">Surface habitable</h3>
-            <p class="card-step__question">Quelle est la surface habitable de votre logement&nbsp;?</p>
-            <div class="field">
-              <label class="sr-only" for="surface">Surface habitable</label>
-              <select id="surface" name="surface" class="sel" required>
-                <option value="" disabled selected hidden>Choisir…</option>
-                <option value="-70">Moins de 70&nbsp;m²</option>
-                <option value="70-90">De 70 à 90&nbsp;m²</option>
-                <option value="90-110">De 90 à 110&nbsp;m²</option>
-                <option value="110-130">De 110 à 130&nbsp;m²</option>
-                <option value="130+">Plus de 130&nbsp;m²</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="card-step" data-step="3" style="display:none">
-            <h3 class="card-step__title">Foyer fiscal</h3>
-            <p class="card-step__question">Combien de personnes composent votre foyer fiscal&nbsp;?</p>
-            <div class="field">
-              <label class="sr-only" for="foyer">Nb de personnes dans le foyer fiscal</label>
-              <select id="foyer" name="foyer" class="sel">
-                <option value="" disabled selected hidden>Choisir…</option>
-                <option value="1">1 personne</option>
-                <option value="2">2 personnes</option>
-                <option value="3">3 personnes</option>
-                <option value="4">4 personnes</option>
-                <option value="5+">5 personnes ou plus</option>
-              </select>
-            </div>
-            <p class="field__hint">
-              Incluez toutes les personnes rattachées à votre foyer fiscal.
-            </p>
-          </div>
-
-          <div class="card-step" data-step="4" style="display:none">
-            <h3 class="card-step__title">Revenu fiscal</h3>
-            <p class="card-step__question">Quel est votre revenu fiscal de référence (RFR)&nbsp;?</p>
-            <div class="field">
-              <label class="sr-only" for="rfr">Revenu fiscal de référence (RFR)</label>
-              <input
-                id="rfr"
-                name="rfr"
-                type="text"
-                inputmode="numeric"
-                pattern="[0-9 ]*"
-                class="inp"
-                placeholder="Montant en € indiqué sur votre avis d’imposition"
-                required
-              />
-              <p class="field__hint">
-                Indiqué en page 2 de votre dernier avis d’imposition. Exemple : 22&nbsp;500&nbsp;€.
-              </p>
-            </div>
-          </div>
-
-          <div class="card-step" data-step="5" style="display:none">
-            <h3 class="card-step__title">Chauffage actuel</h3>
-            <p class="card-step__question">Quel est votre chauffage principal actuel&nbsp;?</p>
-            <div class="field">
-              <label class="sr-only" for="chauffage">Chauffage principal actuel</label>
-              <select id="chauffage" name="chauffage" class="sel" required>
-                <option value="" disabled selected hidden>Choisir…</option>
-                <option value="fioul">Chaudière fioul</option>
-                <option value="gaz">Chaudière gaz</option>
-                <option value="elec">Radiateurs électriques</option>
-                <option value="pac">Pompe à chaleur déjà installée</option>
-                <option value="autre">Autre</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="card-nav">
-            <button type="button" class="btn-secondary" id="step-prev" style="visibility:hidden">
-              Retour
-            </button>
-            <button type="button" class="cta" id="step-next">
-              Suivant
-            </button>
-          </div>
-
-          <p class="form-note">
-            Résultat indicatif basé sur les barèmes CEE et votre profil déclaré.
-            Validation définitive après étude complète de votre dossier.
-          </p>
-        </form>
-      </div>
-
-    </section>
-
-  </div>
-</header>
  <div class="card__body">
-  <!-- Indicateur de progression -->
   <div class="card-progress">
     <p class="card-progress__text">
       Étape <span id="step-current">1</span> sur <span id="step-total">5</span>
@@ -301,7 +223,6 @@
   </div>
 
   <form id="form-estimation" action="#" onsubmit="return false" novalidate>
-    <!-- Étape 1 : Code postal -->
     <div class="card-step" data-step="1">
       <h3 class="card-step__title">Votre logement</h3>
       <p class="card-step__question">Dans quel code postal se situe votre logement&nbsp;?</p>
@@ -321,7 +242,6 @@
       </div>
     </div>
 
-    <!-- Étape 2 : Surface -->
     <div class="card-step" data-step="2" style="display:none">
       <h3 class="card-step__title">Surface habitable</h3>
       <p class="card-step__question">Quelle est la surface habitable de votre logement&nbsp;?</p>
@@ -338,7 +258,6 @@
       </div>
     </div>
 
-    <!-- Étape 3 : Foyer fiscal -->
     <div class="card-step" data-step="3" style="display:none">
       <h3 class="card-step__title">Foyer fiscal</h3>
       <p class="card-step__question">Combien de personnes composent votre foyer fiscal&nbsp;?</p>
@@ -358,7 +277,6 @@
       </p>
     </div>
 
-    <!-- Étape 4 : RFR -->
     <div class="card-step" data-step="4" style="display:none">
       <h3 class="card-step__title">Revenu fiscal</h3>
       <p class="card-step__question">Quel est votre revenu fiscal de référence (RFR)&nbsp;?</p>
@@ -374,14 +292,12 @@
   placeholder="Montant en € indiqué sur votre avis d’imposition"
   required
 />
-
         <p class="field__hint">
           Indiqué en page 2 de votre dernier avis d’imposition. Exemple : 22&nbsp;500&nbsp;€.
         </p>
       </div>
     </div>
 
-    <!-- Étape 5 : Chauffage actuel -->
     <div class="card-step" data-step="5" style="display:none">
       <h3 class="card-step__title">Chauffage actuel</h3>
       <p class="card-step__question">Quel est votre chauffage principal actuel&nbsp;?</p>
@@ -398,7 +314,6 @@
       </div>
     </div>
 
-    <!-- Zone boutons navigation -->
     <div class="card-nav">
       <button type="button" class="btn-secondary" id="step-prev" style="visibility:hidden">
         Retour
@@ -417,8 +332,6 @@
 
 </section>
 
-
-
   </div>
 </header>
 
@@ -429,7 +342,6 @@
   <section id="resume-cout" class="rc" aria-label="Résumé des aides et du reste à charge" style="display:none">
     <div class="rc__inner">
       <div class="rc__icon" aria-hidden="true">
-        <!-- Icône conservée -->
         <svg viewBox="0 0 64 64" width="44" height="44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="46" cy="18" r="16" stroke="#ffffff" stroke-width="2.5" fill="none"/>
           <path d="M45 7.5c-3.3 0-6 2.7-6 6h-2v3h2v1h-2v3h2c0 3.3 2.7 6 6 6 1.5 0 3-.6 4.1-1.5v-3.4c-1 .9-2.2 1.5-3.6 1.5-1.9 0-3.4-1.1-3.9-2.6h5.5v-3h-6c.1-.2.1-.5.1-.7v-.6h5.9v-3h-5.2c.6-1.5 2-2.6 3.7-2.6 1.3 0 2.6.6 3.5 1.4V9c-1.2-.9-2.7-1.5-4.1-1.5z" fill="#ffffff"/>
@@ -477,7 +389,6 @@
 
  <section id="rc-cards" class="rc-cards" aria-label="Résultat de votre estimation">
   <div class="rc-wrap">
-    <!-- Résumé principal -->
     <div class="rc-main">
       <p class="rc-main__label">Reste à charge estimé après aides CEE</p>
       <p class="rc-main__value" id="rc-rac-amount">0&nbsp;€</p>
@@ -486,7 +397,6 @@
       </p>
     </div>
 
-    <!-- Rappel des informations saisies -->
     <div class="rc-details">
       <h3 class="rc-details__title">Rappel de vos informations</h3>
       <ul class="rc-details__list">
@@ -526,7 +436,6 @@
     </div>
   </div>
 </section>
-
 
   <p id="rc-slogan" style="
     text-align:center; font-size:1.6rem; line-height:1.25; font-weight:900; color:#0a3ebf;
@@ -593,7 +502,6 @@
     </div>
   </section>
 
-  <!-- Bandeau téléphone résultats -->
   <div id="tel-banner" class="tel-banner" aria-hidden="true">
     <form id="tel-banner-form" class="tel-banner__form" novalidate>
       <span class="tel-banner__label">
@@ -661,14 +569,11 @@
     </div>
   </section>
 
-  <!-- ===== Bloc image + texte ===== -->
   <section id="focus-adou" class="split" aria-labelledby="focusAdouTitle" data-hide-after-sim="1">
     <div class="split__inner">
       <div class="split__media">
         <img
          src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/3e5aec40da5e0a7d512fb57b4c286441facf1d68/pac%20glace.webp"
-
-
           alt="Pompe à chaleur installée dans une maison individuelle"
           width="944"
           height="1300"
@@ -694,8 +599,6 @@
       </div>
     </div>
   </section>
-  <!-- ===== Fin bloc image + texte ===== -->
-  
   <section id="benefits" class="benefits" aria-labelledby="benefitsTitle" data-hide-after-sim="1">
     <div class="benefits__inner">
       <h2 id="benefitsTitle">Des résultats visibles dès les premières factures</h2>
@@ -819,8 +722,6 @@
   <h3>C’est le reste à charge possible</h3>
   <p>Vérifiez votre montant exact avec notre simulateur.</p>
 </article>
-
-
 
       </div>
     </div>
@@ -1056,7 +957,6 @@
 
 <script src="script.js" defer></script>
 
-<!-- Tracking conversion Google Ads -->
 <script>
 (function () {
   if (window.__convLeadSent) return;
@@ -1111,4 +1011,4 @@
   </div>
 </div>
 </body>
-            </html>
+</html>
