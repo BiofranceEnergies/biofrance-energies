@@ -2113,3 +2113,41 @@ body.results-visible #focus-adou { display: none !important; }
     width: 100%;
   }
 }
+/* =================================================================
+   CORRECTIF STYLE WATERSOFT (SUPPRESSION DES RONDS)
+   ================================================================= */
+
+/* 1. On enlève le fond rond et on réduit la taille du conteneur */
+.footer-icon {
+  background: transparent !important; /* Enlève le rond bleu/gris */
+  width: 24px !important;            /* Réduit la largeur */
+  height: 24px !important;           /* Réduit la hauteur */
+  padding: 0 !important;             /* Enlève l'espace interne */
+  border-radius: 0 !important;       /* Enlève l'arrondi */
+  justify-content: flex-start !important; /* Aligne l'icône à gauche */
+}
+
+/* 2. On ajuste la taille de l'icône elle-même */
+.footer-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+  color: #38bdf8 !important; /* Couleur bleu ciel (Cyan) */
+}
+
+/* 3. On réduit l'écart entre l'icône et le texte */
+.footer-list li {
+  gap: 12px !important; /* Espace plus fin */
+  margin-bottom: 20px !important; /* Espace entre les lignes */
+}
+
+/* 4. On s'assure que le texte est bien blanc et gras */
+.footer-list .value {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+}
+
+/* 5. Alignement parfait des colonnes */
+.footer-col {
+  padding-right: 20px;
+}
